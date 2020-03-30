@@ -1,6 +1,3 @@
-# CSIS3280-Final-Project
-Pharma project
-
 
 [TEMPORARY WRITEUP]
 This project is a database project for a "Over the Counter" pharmacy. Think something like in Safeway/London Drugs/Costco pharma
