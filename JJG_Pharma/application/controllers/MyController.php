@@ -8,7 +8,7 @@ class MyController extends CI_Controller {
         echo "TEST INDEX";
     }
 
-    public function view($page = 'login')
+     public function view($page = 'search')
     {
         if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
         {
@@ -21,8 +21,8 @@ class MyController extends CI_Controller {
 
         //view("PATH", PASS_DATA)
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/links', $data);
+        $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer', $data);
     }
 
