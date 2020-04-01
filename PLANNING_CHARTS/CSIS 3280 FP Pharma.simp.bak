@@ -16,12 +16,12 @@
         <item-type type-id="erd-entity" type="ErdEntity" />
         <value>6</value>
       </counter>
+      <counter>
+        <item-type type-id="" type="DrawingItem" />
+        <value>1</value>
+      </counter>
     </entity-names>
     <entity-ids>
-      <counter>
-        <item-type type-id="" type="AbstractElementGroup" />
-        <value>415</value>
-      </counter>
       <counter>
         <item-type type-id="timing-frame" type="UmlTimingFrame" />
         <value>2</value>
@@ -34,6 +34,18 @@
         <item-type type-id="erd-relationship" type="ErdRelation" />
         <value>16</value>
       </counter>
+      <counter>
+        <item-type type-id="" type="AbstractElementGroup" />
+        <value>83</value>
+      </counter>
+      <counter>
+        <item-type type-id="mind-map-start" type="MindMapStart" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="shape" type="AbstractShapeItem" />
+        <value>2</value>
+      </counter>
     </entity-ids>
     <diagrams>
       <counter>
@@ -42,6 +54,10 @@
       </counter>
       <counter>
         <type>SoftwareIdeasModeler.Core.Diagrams.Other.EntityRelationshipDiagram</type>
+        <value>1</value>
+      </counter>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.Other.MindMap</type>
         <value>1</value>
       </counter>
     </diagrams>
@@ -54,6 +70,7 @@
   </counters>
   <alias-groups />
   <management uid="md-03e108f228ee4be0965ec3bc8d483360" name="" task-id-sequence="0">
+    <working-schedule uid="ws-263607e10b1a43cd9b85b7b04c5da98d" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
     <persons>
       <person id="P2c8c0d9f5ab74fe1a2c92465a3718e35">
         <first-name />
@@ -63,6 +80,7 @@
         <phone-number />
         <description />
         <color>#00000000</color>
+        <working-schedule uid="ws-76c828cf957e46bba7ed182b78791a85" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
       </person>
     </persons>
     <teams />
@@ -1499,7 +1517,9 @@
       </style-definition>
     </style>
   </style-set>
-  <items />
+  <items>
+    <item id="280d18c43fb542edbd18db20c46a7c98" cid="STR001" type="mind-map-start" name="MindMap1" style-class="" visibility="package" creation-date="03/31/2020 15:52:56" />
+  </items>
   <models>
     <model id="p586afca1975843db852f331d05cb7305_687286288" name="Model1" namespace="" order-index="1">
       <meta>
@@ -1514,26 +1534,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-timing" id="pb35c01be06ab44869f8bdaff38de0740_368513728" name="TimingDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,-125">
-        <style>
-          <background-color index="1" color="#FFFFFFFF" />
-          <background-color index="2" color="#FFFFFFFF" />
-          <background-type type="solid" />
-        </style>
-        <meta>
-          <authors>
-            <author> </author>
-          </authors>
-          <description />
-          <creation-date>03/28/2020 21:32:09</creation-date>
-          <change-date>03/28/2020 21:32:49</change-date>
-          <revision-count>0</revision-count>
-          <version />
-        </meta>
-        <abstract-items />
-        <layer id="ca5c91035a254c87a85142e6ed48486d" name="Default" visible="true" enabled="true" locked="false" />
-      </diagram>
-      <diagram type="entity-relationship" id="p4a48379777214659aa843d70ef60cedd_793248396" name="EntityRelationshipDiagram1" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+      <diagram type="entity-relationship" id="p4a48379777214659aa843d70ef60cedd_793248396" name="EntityRelationshipDiagram1" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,-175">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -1608,7 +1609,7 @@
             <indexes />
           </item>
           <item id="4f96cd2ee6f448988c8609e35b10bc33" cid="REL002" type="erd-relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P2c8c0d9f5ab74fe1a2c92465a3718e35" creation-date="03/28/2020 21:36:59" from="19d7a7005c8e4477ac2b61abd2d68af0" to="f033d400b3f8400e9fcf48b3a88a7049">
-            <style style-name="" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
               <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;10;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
               <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
               <text-style type="text" use-defaults="false" color="#FF000000" font="Segoe UI;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
@@ -1782,6 +1783,141 @@
               </points>
             </layout>
             <relation from="9f7a79c294994618a4e35bee9c87a055" from-iid="33d2dd6d76154e45bc4f2a1cc00ddfb5" from-field="a5c2f66a4f71e4b9fa0cfe994aecf8723361" to="da5a3744dfe644d295e841ab9432b0ca" to-iid="1c604ae55a8741e4a6b74d9434b7048b" to-field="a001d7ebc19cd467c924c10786e75b2f4754" />
+          </item>
+        </layer>
+      </diagram>
+      <diagram type="mind-map" id="pb335d971e1c54f419684b7f6dbf261e8_509393378" name="MindMap1" order-index="3" overview-order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>03/31/2020 15:52:56</creation-date>
+          <change-date>03/31/2020 15:55:52</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items />
+        <layer id="d5d40133a17143ee9fae7d44006e75d4" name="Default" visible="true" enabled="true" locked="false">
+          <item id="280d18c43fb542edbd18db20c46a7c98" iid="2a87de99301c4a908b6488dd45fa594b" creation-date="03/31/2020 15:52:56" order-index="0" type="entity">
+            <layout ax="511" ay="305" awidth="150" aheight="80" x="511" y="305" width="150" height="80" />
+          </item>
+          <item id="di8f39c397866a4f4392b09903e3448ebc7568" iid="22eb8482153d41c1bf440bda4df31ff5" name="Element1" creation-date="03/31/2020 15:53:58" order-index="1" type="drawing-shape">
+            <layout ax="304" ay="148" awidth="147" aheight="100" x="304" y="148" width="147" height="100" />
+            <drawing-shape type="Rectangle">
+              <text>LOGIN</text>
+            </drawing-shape>
+            <style style-name="Light Green" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;18;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;18;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="solid" color="#FF75B290" color2="#FFEBEBEB" />
+              <border color="#FF007834" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FFFFFFFF" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="solid" color="#FF007834" color2="#FF87CEFA" />
+                  <border color="#FF007834" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+          <item id="di8f39c397866a4f4392b09903e3448ebc7568" iid="97e0a2f0f4444a988c14a8e521d8bfef" name="Element1" creation-date="03/31/2020 15:53:58" order-index="1" type="drawing-shape">
+            <layout ax="1020" ay="143" awidth="147" aheight="100" x="1020" y="143" width="147" height="100" />
+            <drawing-shape type="Rectangle">
+              <text>LOGIN</text>
+            </drawing-shape>
+            <style style-name="Light Green" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;18;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;18;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="solid" color="#FF75B290" color2="#FFEBEBEB" />
+              <border color="#FF007834" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FFFFFFFF" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="solid" color="#FF007834" color2="#FF87CEFA" />
+                  <border color="#FF007834" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+          <item id="di8f39c397866a4f4392b09903e3448ebc7568" iid="4c3faad02166411a9e0abf83b7c193e0" name="Element1" creation-date="03/31/2020 15:53:58" order-index="1" type="drawing-shape">
+            <layout ax="584" ay="115" awidth="147" aheight="100" x="584" y="115" width="147" height="100" />
+            <drawing-shape type="Rectangle">
+              <text>PROFILE</text>
+            </drawing-shape>
+            <style style-name="Light Green" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;18;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;18;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="solid" color="#FF75B290" color2="#FFEBEBEB" />
+              <border color="#FF007834" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FFFFFFFF" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="solid" color="#FF007834" color2="#FF87CEFA" />
+                  <border color="#FF007834" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+          <item id="di8f39c397866a4f4392b09903e3448ebc7568" iid="85368579cae24c78857b71e88a16c834" name="Element1" creation-date="03/31/2020 15:53:58" order-index="1" type="drawing-shape">
+            <layout ax="787" ay="189" awidth="147" aheight="100" x="787" y="189" width="147" height="100" />
+            <drawing-shape type="Rectangle">
+              <text>LOGIN</text>
+            </drawing-shape>
+            <style style-name="Light Green" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;18;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;18;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF000000" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="solid" color="#FF75B290" color2="#FFEBEBEB" />
+              <border color="#FF007834" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FFFFFFFF" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FFFFFFFF" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="solid" color="#FF007834" color2="#FF87CEFA" />
+                  <border color="#FF007834" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
           </item>
         </layer>
       </diagram>
