@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Search</title>
-  </head>
-  <body>
-      <h1>Search</h1>
-  
-  </body>
-</html>
+<div class="row column">
+  <h1>Search</h1>
+  <table >
+    <tr>
+      <td>IMAGE</td>
+      <td>Medicine Name</td>
+      <td>Treatment</td>
+      <td>Description</td>   
+    </tr>  
+
+  </table>
+  <br/>
+</div>
