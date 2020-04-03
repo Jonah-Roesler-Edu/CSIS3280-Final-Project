@@ -1,0 +1,10 @@
+1 WAMP:
+    Open WAMP
+    Apache>create New Alias
+        Alias name: "JJG_Pharma"
+        Allias pointer: INSIDE "JJG_Pharma" folder
+            (same folder as index.php)
+2. SQL
+    run SQL file
+    finalProject-jjgWebcoder\sql\FinalProject.sql
+        
