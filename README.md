@@ -7,6 +7,7 @@ Status: sorta got routing working but still a hassle. workable though
 TO OPERATE CURRENT CODE IGNITER PROJECT
 - Add JJG_Pharma as Wampserver Alias
 - open alias in wampserver
+- >> PLEASE SET WAMPSERVER POINTER TO SAME FOLDER AS INDEX.PHP
 - http://localhost/JJG_Pharma/
 - see the login page with links, use links to navigate.
 
