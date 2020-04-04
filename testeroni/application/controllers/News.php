@@ -1,5 +1,12 @@
 <?php
+
+// require_once('application\classes\RestClient.class.php');
+
+require_once(CLASSES_DIR  . "RestClient.class.php");
+
+
 class News extends CI_Controller {
+
 
     public function __construct()
     {
@@ -15,8 +22,19 @@ class News extends CI_Controller {
 
         $this->load->view('templates/header', $data);
         $this->load->view('news/index', $data);
+        $this->load->view('pages/home');
         $this->load->view('templates/footer');
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                var_dump($_POST);
+                echo "Post gets thrown back to here from here!";
+        }
+        $postArr = array(
+                "action" => $_POST["action"]
+        );
+        $test = "";
+        $test = RestClient::call("POST", $postArr);
+        var_dump($test);
         var_dump($data);
 }
 

@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+define('API_URL',   'http://localhost/JJG_Pharma/RestAPI.php');
+//RestAPI.php
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
