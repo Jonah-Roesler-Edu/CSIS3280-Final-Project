@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS FinalProject;
-CREATE DATABASE FinalProject;
-USE FinalProject;
+DROP DATABASE IF EXISTS pharmadb;
+CREATE DATABASE pharmadb;
+USE pharmadb;
 
 CREATE TABLE User(
     UserID INT(11) NOT NULL,
