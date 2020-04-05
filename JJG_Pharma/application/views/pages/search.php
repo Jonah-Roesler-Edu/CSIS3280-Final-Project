@@ -11,3 +11,7 @@
   </table>
   <br/>
 </div>
+<form action="" method="POST">
+            <input type="submit">
+            <input type="hidden" name="action" value="TEST POST">
+        </form>

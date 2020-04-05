@@ -1,0 +1,8 @@
+
+
+
+MASTER FILE (point wamp here)
+    RestComponents
+        [restAPI, entities, and PDOAgent is here]
+    CodeIgniter Project Folder
+        [our JJG_Pharma is here]

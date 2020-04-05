@@ -54,5 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'MyController/view';
 // $route['default_controller'] = "index.php";
 $route['(:any)'] = 'MyController/view/$1';
+
+$route['test'] = 'MyController/test';
 // $route['404_override'] = '';
 // $route['translate_uri_dashes'] = FALSE;
