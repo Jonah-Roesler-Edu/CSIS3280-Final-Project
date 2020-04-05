@@ -1,7 +1,7 @@
 <?php
 //Rest client taken from LAB10 !
-
-class RestClient {
+//edited
+class RestClient{
 
     static function call($method, $callData = array())    {
 
@@ -19,10 +19,18 @@ class RestClient {
         );
 
         $context = stream_context_create($options);
-        $result = file_get_contents(API_URL, false, $context);
-        // API URL DEFINED IN app>config>constants.php
+        //CODEIGNITER CUSTOM $this->input->raw_input_stream;
+        // 'http://localhost/JJG_Pharma/RestAPI.php'
+        // $result = file_get_contents('http://localhost/JJG_Pharma/testeroni/RestAPI.php', false, $context);
+        $result = file_get_contents('http://localhost/JJG_Pharma/RestAPI.php', false, $context);
+        // $inputClass = new CI_Input;
+        
 
+        // $result = $this->input->raw_input_stream;
+        // API URL DEFINED IN app>config>constants.php
+        // var_dump ($this->input->raw_input_stream);
         return json_decode($result);
+        // return $result;
 
     }
 

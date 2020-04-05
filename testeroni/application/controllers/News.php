@@ -3,6 +3,8 @@
 // require_once('application\classes\RestClient.class.php');
 
 require_once(CLASSES_DIR  . "RestClient.class.php");
+// require_once('application\controllers\RestClient.class.php');
+
 
 
 class News extends CI_Controller {
@@ -32,8 +34,11 @@ class News extends CI_Controller {
         $postArr = array(
                 "action" => $_POST["action"]
         );
-        $test = "";
+        // $restclient = new RestClient();
+
+        // echo file_get_contents('http://google.ca');
         $test = RestClient::call("POST", $postArr);
+
         var_dump($test);
         var_dump($data);
 }
