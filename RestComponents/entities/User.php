@@ -89,13 +89,32 @@ class User{
         $storedHash = password_hash($passwordToVerify, PASSWORD_DEFAULT);
         
         return password_verify($passwordToVerify, $storedHash);
-        
-
     }
 
     public function jsonSerialize() {
-        $vars = get_object_vars($this);
-        return $vars;
+        // $vars = get_object_vars($this);
+        // return $vars;
+        // private $UserID;
+        // private $FirstName;
+        // private $LastName;
+        // private $UserName;
+        // private $Email;
+        // private $Phone;
+        // private $Gender;
+        // private $Age;
+        // private $Pass;
+
+        //Password left out
+        $userjs = new stdClass;
+        $userjs->UserID = $this->UserID;
+        $userjs->FirstName = $this->FirstName;
+        $userjs->LastName = $this->LastName;
+        $userjs->UserName = $this->UserName;
+        $userjs->Email = $this->Email;
+        $userjs->Phone = $this->Phone;
+        $userjs->Gender = $this->Gender;
+        $userjs->Age = $this->Age;
+        return $userjs;
     }
     
 

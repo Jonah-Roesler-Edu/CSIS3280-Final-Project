@@ -10,7 +10,7 @@ require_once('entities\Medicine.php');
 require_once('entities\Transaction.php');
 require_once('entities\User.php');
 
-// require_once('JJG_Pharma\application\entities\User.class.php');
+// require_once('..\JJG_Pharma\application\entities\User.class.php');
 
 //Require Utillity Classes
 require_once('PDOAgent.class.php');

@@ -9,40 +9,36 @@ private static $_db;
 static function initialize()    {
 
     //Initialize the database connection
-    self::$_db = new PDOAgent('User');
+    self::$_db = new PDOAgent('Transaction');
 
 }
 
-//CREATE a single User 
-static function createUser(User $newUser): int   {
-    //it would probably be good if we made the UserID autoincrement 
-        // [0] Done -Jonah
-
-    // CREATE TABLE User(
-//     UserID INT(11) NOT NULL,
-//     FirstName VARCHAR(50),
-//     LastName VARCHAR(50),
-//     UserName VARCHAR(50),
-//     Email VARCHAR(50),
-//     Phone VARCHAR(50),
-//     Gender VARCHAR(50),
-//     Age INT(11),
-//     Pass VARCHAR(250),
-//     PRIMARY KEY(UserID)
+// CREATE TABLE Transaction(
+//     TransactionID INT(11) NOT NULL AUTO_INCREMENT,
+//     ClientID INT(11) NOT NULL,
+//     MedicineID INT(11) NOT NULL,
+//     PrescriptionID INT(11) NOT NULL,
+//     Price DECIMAl,
+//     TransDate date,
+//     PRIMARY KEY(TransactionID),
+//     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
+//     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE,
+//     FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID) ON DELETE CASCADE ON UPDATE CASCADE
 // );
 
-    //Generate the INSERT STATEMENT for the user;
-//    $sql = "INSERT INTO User (UserID, FirstName, LastName, UserName, Email, Phone, Gender, Age, Pass)
-//             VALUES (:userid, :first_name, :last_name, :username, :email, :phone, :gender, :age, :pass);";
 
-    $sql = "INSERT INTO User (FirstName, LastName, UserName, Email, Phone, Gender, Age, Pass)
-    VALUES (:first_name, :last_name, :username, :email, :phone, :gender, :age, :pass);";
+//CREATE a single Transaction
+static function createTransaction(User $newUser): int   {
+
+    //Generate the INSERT STATEMENT for the user;
+   $sql = "INSERT INTO Transaction (UserID, FirstName, LastName, UserName, Email, Phone, Gender, Age, Pass)
+            VALUES (:userid, :first_name, :last_name, :username, :email, :phone, :gender, :age, :pass);";
 
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
-//    self::$_db->bind("userid", $newUser->getUserID);
+   self::$_db->bind("userid", $newUser->getUserID);
    self::$_db->bind(":first_name", $newUser->getFirstName());
    self::$_db->bind(":last_name", $newUser->getLastName());
    self::$_db->bind(":username", $newUser->getUserName());

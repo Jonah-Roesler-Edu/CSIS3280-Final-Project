@@ -1,9 +1,9 @@
 DROP DATABASE IF EXISTS pharmadb;
 CREATE DATABASE pharmadb;
 USE pharmadb;
-
+-- select * from Transaction;
 CREATE TABLE User(
-    UserID INT(11) NOT NULL,
+    UserID INT(11) NOT NULL AUTO_INCREMENT,
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     UserName VARCHAR(50),
@@ -15,21 +15,19 @@ CREATE TABLE User(
     PRIMARY KEY(UserID)
 );
 
-
-
 CREATE TABLE Client(
-    ClientID INT(11) NOT NULL,
-    ClientName VARCHAR(50),
-    Age VARCHAR(50),
-    Gender VARCHAR(50),
-    PRIMARY KEY(ClientID)
+    ClientID INT(11) NOT NULL AUTO_INCREMENT,
+    UserID INT(11) NOT NULL,
+    PRIMARY KEY(ClientID),
+    FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Doctor(
-    DoctorID INT(11) NOT NULL,
-    DoctorName VARCHAR(50),
+    DoctorID INT(11) NOT NULL AUTO_INCREMENT,
     DoctorType VARCHAR(50),
-    PRIMARY KEY(DoctorID)
+    UserID INT(11) NOT NULL,
+    PRIMARY KEY(DoctorID),
+    FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Client_Doctor(
@@ -41,7 +39,7 @@ CREATE TABLE Client_Doctor(
 );
 
 CREATE TABLE Medicine(
-    MedicineID INT(11) NOT NULL,
+    MedicineID INT(11) NOT NULL AUTO_INCREMENT,
     MedicineName VARCHAR(50),
     Treatment VARCHAR(500),
     Description VARCHAR(500),
@@ -49,10 +47,12 @@ CREATE TABLE Medicine(
 );
 
 CREATE TABLE Prescription(
-    PrescriptionID INT(11) NOT NULL,
+    PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
     ClientID INT(11) NOT NULL,
     DoctorID INT(11),
     MedicineID INT(11) NOT NULL,
+    Description VARCHAR(500), 
+    -- Something like dosage, etc
     PRIMARY KEY(PrescriptionID),
     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(DoctorID) REFERENCES Doctor(DoctorID) ON DELETE SET NULL,
@@ -61,20 +61,17 @@ CREATE TABLE Prescription(
 
 
 CREATE TABLE Transaction(
-    TransactionID INT(11) NOT NULL,
+    TransactionID INT(11) NOT NULL AUTO_INCREMENT,
     ClientID INT(11) NOT NULL,
     MedicineID INT(11) NOT NULL,
     PrescriptionID INT(11) NOT NULL,
     Price DECIMAl,
+    TransDate date,
     PRIMARY KEY(TransactionID),
     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
-
-
 
 
 INSERT INTO User VALUES 
@@ -85,22 +82,23 @@ INSERT INTO User VALUES
 ,(5,'Shawna','Matantsev','smatantsev4','smatantsev4@timesonline.co.uk','688-404-8801','Female',66,'$2y$10$0fNIQtbC7VHMbJS/XB6ma.1MxIPHVbFcuu947Ao1U2BDy8cVHJpU.')
 ,(6,'Ainslie','Tuther','atuther5','atuther5@bbc.co.uk','489-143-1765','Female',78,'$2y$10$RHh9rkd4e.xVnDecn7Yepe5zyVybjnoCkyaxrwyIH/TL1png1.Cp2')
 ,(7,'Karlik','Marien','kmarien6','kmarien6@diigo.com','468-356-5579','Male',71,'$2y$10$s/iHmmBqZJIx30iL3f4eluzNJT7v13tmrKuC4ZjMCAX0cm3O.Xcay')
-,(8,'Audie','McCombe','amccombe7','amccombe7@usnews.com','633-165-2217','Female',35,'$2y$10$imly.3qHRyZKVT7G9S.Ucuba8i/XfM9DkoW5YzYiPrz9IABEeWAzm');
+,(8,'Audie','McCombe','amccombe7','amccombe7@usnews.com','633-165-2217','Female',35,'$2y$10$imly.3qHRyZKVT7G9S.Ucuba8i/XfM9DkoW5YzYiPrz9IABEeWAzm'),
+(9,'firstName', 'lastName', 'username', 'email@email.com', '111-111-1111', 'Male', 30, 'password');
 
 
 
-INSERT INTO Client VALUES(1,"Adam Lee",45,"Male");
-INSERT INTO Client VALUES(2,"Michael Smith",35,"Male");
-INSERT INTO Client VALUES(3,"Tonny Johnson ",34,"Male");
-INSERT INTO Client VALUES(4,"Olivia Brown",21,"Female");
-INSERT INTO Client VALUES(5,"Simon Davis",67,"Male");
+INSERT INTO Client VALUES(1,1);
+INSERT INTO Client VALUES(2,2);
+INSERT INTO Client VALUES(3,3);
+INSERT INTO Client VALUES(4,4);
+INSERT INTO Client VALUES(5,5);
 
-INSERT INTO Doctor VALUES(1,"Liam Miller","Cardiologists");
-INSERT INTO Doctor VALUES(2,"James Wilson","Allergists");
-INSERT INTO Doctor VALUES(3,"Lucas Jones ","Dermatologists");
+INSERT INTO Doctor VALUES(1,"Cardiologists",6);
+INSERT INTO Doctor VALUES(2,"Allergists",7);
+INSERT INTO Doctor VALUES(3,"Dermatologists",8);
 
 INSERT INTO Client_Doctor VALUES(1,1);
-INSERT INTO Client_Doctor VALUES(2,2);
+INSERT INTO Client_Doctor VALUES(2,3);
 INSERT INTO Client_Doctor VALUES(1,3);
 
 INSERT INTO Medicine VALUES(1,"Aspirin","reduce pain and fever","Follow you doctor advices");
@@ -108,15 +106,15 @@ INSERT INTO Medicine VALUES(2,"Biotin","enhance nail, hair and nerve","Follow yo
 INSERT INTO Medicine VALUES(3,"Paracetamol","The treatment of painfull, headache ","Follow you doctor advices");
 INSERT INTO Medicine VALUES(4,"Phenytoin","slowing down impulses in the brain that cause seizures","Follow you doctor advices");
 
-INSERT INTO Prescription VALUES(1,1,1,1);
-INSERT INTO Prescription VALUES(2,2,2,2);
-INSERT INTO Prescription VALUES(3,3,2,1);
+INSERT INTO Prescription VALUES(1,1,1,1, "100 mg, apply sparingly");
+INSERT INTO Prescription VALUES(2,2,2,2, "200 pills");
+INSERT INTO Prescription VALUES(3,3,2,1, "100 pills");
 
 
-INSERT INTO Transaction VALUES(1,3,1,2,200);
-INSERT INTO Transaction VALUES(2,2,2,2,300);
-INSERT INTO Transaction VALUES(3,1,3,3,150);
-INSERT INTO Transaction VALUES(4,2,1,1,80);
+INSERT INTO Transaction VALUES(1,3,1,2,200, '2020-01-02');
+INSERT INTO Transaction VALUES(2,2,2,2,300, '2020-04-01');
+INSERT INTO Transaction VALUES(3,1,3,3,150, '2020-04-02');
+INSERT INTO Transaction VALUES(4,2,1,1,80, '2020-04-03');
 
 
 

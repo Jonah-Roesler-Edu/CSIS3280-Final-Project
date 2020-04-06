@@ -9,8 +9,8 @@
 class Client {
     private $ClientID;
     private $UserID;
-    private $FirstName;
-    private $LastName;
+    // private $FirstName;
+    // private $LastName;
 
     //getter
     public function getClientID() {
@@ -19,12 +19,12 @@ class Client {
     public function getUserID() {
         return $this->UserID;
     }
-    public function getFirstName() {
-        return $this->FirstName;
-    }
-    public function getLastName() {
-        return $this->LastName;
-    }
+    // public function getFirstName() {
+    //     return $this->FirstName;
+    // }
+    // public function getLastName() {
+    //     return $this->LastName;
+    // }
 
     //setter
     public function setClientID(int $cID) {
@@ -33,11 +33,16 @@ class Client {
     public function setUserID(int $uID) {
         $this->UserID = $uID;
     }
-    public function setFirstName(string $fName) {
-        $this->FirstName = $fName;
-    }
-    public function setLastName(string $lName) {
-        $this->LastName = $lName;
+    // public function setFirstName(string $fName) {
+    //     $this->FirstName = $fName;
+    // }
+    // public function setLastName(string $lName) {
+    //     $this->LastName = $lName;
+    // }
+
+    public function JsonSerialize() {
+        $obj = get_object_vars($this);
+        return $obj;
     }
     
 }
