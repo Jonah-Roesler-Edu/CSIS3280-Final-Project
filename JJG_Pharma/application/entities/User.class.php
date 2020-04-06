@@ -12,7 +12,7 @@
 //     PRIMARY KEY(UserID)
 // );
 
-class User extends CI_Entity {
+class User {
     private $UserID;
     private $FirstName;
     private $LastName;
