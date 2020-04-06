@@ -12,7 +12,7 @@
 //     PRIMARY KEY(UserID)
 // );
 
-class User{
+class User extends CI_Entity {
     private $UserID;
     private $FirstName;
     private $LastName;
@@ -91,11 +91,6 @@ class User{
         return password_verify($passwordToVerify, $storedHash);
         
 
-    }
-
-    public function jsonSerialize() {
-        $vars = get_object_vars($this);
-        return $vars;
     }
     
 

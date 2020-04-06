@@ -10,9 +10,11 @@ require_once('entities\Medicine.php');
 require_once('entities\Transaction.php');
 require_once('entities\User.php');
 
+// require_once('JJG_Pharma\application\entities\User.class.php');
+
 //Require Utillity Classes
 require_once('PDOAgent.class.php');
-// require_once('inc/Utilities/CustomerMapper.class.php');
+require_once('Utilities\UserDAO.class.php');
 
 /*
 Create  - INSERT - POST
@@ -24,6 +26,7 @@ DELETE  - DELETE - DELETE
 //Instantiate a new Customer Mapper
 // CustomerMapper::initialize();
 
+UserDAO::initialize();
 
 //Pull the request data
 // parse_str(file_get_contents('php://input'), $requestData);
@@ -54,14 +57,20 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     // $result = CustomerMapper::createCustomer($nc);
     //Return the results
     // var_dump($result);
-    echo json_encode(array("message"=> $result));
+    $user = UserDAO::getUser(1);
+    header('Content-Type: application/json');
+    echo json_encode($user->jsonSerialize());
+    // echo json_encode(array("message"=> $result));
 
     break;
 
     //If there was a request with an id return that customer, if not return all of them!
-    // case "GET":
-
-    //     if (isset($requestData->id))    {
+    case "GET":
+        // $users = UserDAO::getUsers();
+        $user = UserDAO::getUser(1);
+        header('Content-Type: application/json');
+        echo json_encode($user->jsonSerialize());
+        // if (isset($requestData->id))    {
 
     //         //Return the customer object
     //         $sc = CustomerMapper::getCustomer($requestData->id);
@@ -89,7 +98,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     //         //Return the entire array
     //         echo json_encode($serializedCustomers);            
     //     }
-    // break;
+    break;
    
     // case "PUT":
     

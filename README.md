@@ -18,6 +18,8 @@ MASTER FILE (point wamp here)
 To see RestAPI working 
 http://localhost/JJG_Pharma/JJG_Pharma/index.php/MyController/test
 (yes I know there is 2 JJG_Pharmas)
+
+
 ![test routing 01](https://i.pinimg.com/originals/9a/d8/62/9ad862ff14ac2a592d542606ba348960.jpg)
 
 [TEMPORARY WRITEUP]
