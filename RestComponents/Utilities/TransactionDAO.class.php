@@ -28,25 +28,21 @@ static function initialize()    {
 
 
 //CREATE a single Transaction
-static function createTransaction(User $newUser): int   {
+static function createTransaction(Transaction $newTrans): int   {
 
     //Generate the INSERT STATEMENT for the user;
-   $sql = "INSERT INTO Transaction (UserID, FirstName, LastName, UserName, Email, Phone, Gender, Age, Pass)
-            VALUES (:userid, :first_name, :last_name, :username, :email, :phone, :gender, :age, :pass);";
+   $sql = "INSERT INTO Transaction (ClientID, MedicineID, PrescriptionID, Price, TransDate)
+            VALUES (:clientid, :medicineid, :prescriptionid, :price, :transdate);";
 
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
-   self::$_db->bind("userid", $newUser->getUserID);
-   self::$_db->bind(":first_name", $newUser->getFirstName());
-   self::$_db->bind(":last_name", $newUser->getLastName());
-   self::$_db->bind(":username", $newUser->getUserName());
-   self::$_db->bind(":email", $newUser->getEmail());
-   self::$_db->bind(":phone", $newUser->getPhone());
-   self::$_db->bind(":gender", $newUser->getGender());
-   self::$_db->bind(":age", $newUser->getAge());
-   self::$_db->bind(":pass", $newUser->getPass());
+   self::$_db->bind("clientid", $newTrans->getClientID());
+   self::$_db->bind(":medicineid", $newTrans->getMedicineID());
+   self::$_db->bind(":prescriptionid", $newTrans->getPrescriptionID());
+   self::$_db->bind(":price", $newTrans->getPrice());
+   self::$_db->bind(":transdate", $newTrans->getTransDate());
 
     //Execute the query
     self::$_db->execute();
@@ -57,10 +53,10 @@ static function createTransaction(User $newUser): int   {
 }
 
 //READ a single User
-static function getUser($id){
+static function getTransaction($id){
 
-    $sql = "SELECT * FROM User
-            WHERE UserID = :id;";
+    $sql = "SELECT * FROM Transaction
+            WHERE TransactionID = :id;";
 
     //prepare the query
     self::$_db->query($sql);
@@ -73,15 +69,13 @@ static function getUser($id){
 
     //Return the User!
     return self::$_db->singleResult();
-
 }
 
 //READ a list of Users
-static function getUsers(){
-
+static function getTransactions(){
 
     //Prepare the query
-    $sql = "SELECT * FROM User;";
+    $sql = "SELECT * FROM Transaction;";
     self::$_db->query($sql);
     //Execute the query
     self::$_db->execute();
@@ -136,25 +130,24 @@ static function updateUser(User $User): int   {
 }
 
 //if you want to update only one field:
-    static function updateField(User $User ,$field, $value): int   {
-        $sql = "UPDATE User
-        SET ".$field." = :value,
-        WHERE UserID = :id;";
+    // static function updateField(User $User ,$field, $value): int   {
+    //     $sql = "UPDATE User
+    //     SET ".$field." = :value,
+    //     WHERE UserID = :id;";
 
-        self::$_db->bind(":value", $User->get());
-        self::$_db->bind(":id", $User->get());
-        // self::$_db->bind(":", $newUser->get()); might need if going to bind :field instead
-        //not sure if the binding of an attribute NAME will work but might try that later.
+    //     self::$_db->bind(":value", $User->get());
+    //     self::$_db->bind(":id", $User->get());
+    //     // self::$_db->bind(":", $newUser->get()); might need if going to bind :field instead
+    //     //not sure if the binding of an attribute NAME will work but might try that later.
 
-        return self::$_db->rowCount();
-    }
+    //     return self::$_db->rowCount();
+    // }
 
 //DELETE
-static function deleteUser(int $id): int {
-
+static function deleteTransaction(int $id): int {
     try {
         $sql = "DELETE FROM User
-            WHERE UserID=:id;";
+            WHERE TransactionID=:id;";
     self::$_db->query($sql);
     //bind
     self::$_db->bind(":id",$id);
@@ -168,6 +161,17 @@ static function deleteUser(int $id): int {
 
     //Return the amount of affected rows.
     return self::$_db->rowCount();
+}
+
+static function getClientTransactions($id) {
+    $sql = "SELECT * FROM Transaction WHERE ClientID = :clientid";
+
+    self::$_db->query();
+    self::$_db->bind(":clientid", $id);
+
+    self::$_db->execute();
+
+    return self::$_db->resultSet();
 }
 
 }
