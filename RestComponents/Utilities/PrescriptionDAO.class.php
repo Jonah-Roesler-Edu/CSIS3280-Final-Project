@@ -2,14 +2,14 @@
 
 
 
-class TransactionDAO    {
+class Prescription    {
 
 private static $_db;
 
 static function initialize()    {
 
     //Initialize the database connection
-    self::$_db = new PDOAgent('Transaction');
+    self::$_db = new PDOAgent('Prescription');
 
 }
 
@@ -27,7 +27,7 @@ static function initialize()    {
 // );
 
 
-//CREATE a single Transaction
+//CREATE a single Prescription
 static function createPrescription(Prescription $newPrescription): int   {
 
     //Generate the INSERT STATEMENT for the user;
@@ -53,7 +53,7 @@ static function createPrescription(Prescription $newPrescription): int   {
 
 }
 
-//READ a single User
+//READ a single Prescription
 static function getPrescription($id){
 
     $sql = "SELECT * FROM Prescription
