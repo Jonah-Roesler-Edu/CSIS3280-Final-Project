@@ -2,7 +2,7 @@
 
 
 
-class UserDAO    {
+class TransactionDAO    {
 
 private static $_db;
 
@@ -84,44 +84,41 @@ static function getTransactions(){
 }
 
 //UPDATE 
-static function updateUser(User $User): int   {
+static function updateTransaction(Transaction $Transaction): int   {
    
-       // CREATE TABLE User(
-//     UserID INT(11) NOT NULL,
-//     FirstName VARCHAR(50),
-//     LastName VARCHAR(50),
-//     UserName VARCHAR(50),
-//     Email VARCHAR(50),
-//     Phone VARCHAR(50),
-//     Gender VARCHAR(50),
-//     Age INT(11),
-//     Pass VARCHAR(250),
-//     PRIMARY KEY(UserID)
+    // CREATE TABLE Transaction(
+//     TransactionID INT(11) NOT NULL AUTO_INCREMENT,
+//     ClientID INT(11) NOT NULL,
+//     MedicineID INT(11) NOT NULL,
+//     PrescriptionID INT(11) NOT NULL,
+//     Price DECIMAl,
+//     TransDate date,
+//     PRIMARY KEY(TransactionID),
+//     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
+//     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE,
+//     FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID) ON DELETE CASCADE ON UPDATE CASCADE
 // );
-
         //Create the query
         //can't update the password here
-        $sql = "UPDATE User
-                SET FirstName = :first_name,
-                LastName = :last_name,
-                UserName = :username,
-                Email = :email,
-                Phone = :phone,
-                Gender = :gender,
-                Age = :age
-                WHERE UserID = :id;";
+        $sql = "UPDATE Transaction
+                SET TransactionID = :transactionid,
+                ClientID = :clientid,
+                MedicineID = :medicineid,
+                PrescriptionID = :prescriptionid,
+                Price = :price,
+                TransDate = :transdate,
+                WHERE TransactionID = :transactionid;";
         //Query...
         self::$_db->query($sql);
 
         //Bind
-        self::$_db->bind(":first_name", $User->getFirstName());
-        self::$_db->bind(":last_name", $User->getLastName());
-        self::$_db->bind(":username", $User->getUserName());
-        self::$_db->bind(":email", $User->getEmail());
-        self::$_db->bind(":phone", $User->getPhone());
-        self::$_db->bind(":gender", $User->getGender());
-        self::$_db->bind(":age", $User->getAge());
-        
+        self::$_db->bind(":transactionid", $Transaction->getTransactionID());
+        self::$_db->bind(":clientid", $Transaction->getClientID());
+        self::$_db->bind(":medicineid", $Transaction->getMedicineID());
+        self::$_db->bind(":prescriptionid", $Transaction->getPrescriptionID());
+        self::$_db->bind(":price", $Transaction->getPrice());
+        self::$_db->bind(":transdate", $Transaction->getTransDate());
+
         //Execute the query
         self::$_db->execute();
 
@@ -146,7 +143,7 @@ static function updateUser(User $User): int   {
 //DELETE
 static function deleteTransaction(int $id): int {
     try {
-        $sql = "DELETE FROM User
+        $sql = "DELETE FROM Transaction
             WHERE TransactionID=:id;";
     self::$_db->query($sql);
     //bind
@@ -164,7 +161,7 @@ static function deleteTransaction(int $id): int {
 }
 
 static function getClientTransactions($id) {
-    $sql = "SELECT * FROM Transaction WHERE ClientID = :clientid";
+    $sql = "SELECT * FROM Transaction WHERE ClientID = :clientid";  
 
     self::$_db->query();
     self::$_db->bind(":clientid", $id);
