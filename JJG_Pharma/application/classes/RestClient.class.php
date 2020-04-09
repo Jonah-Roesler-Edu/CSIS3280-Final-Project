@@ -3,7 +3,7 @@
 //edited
 class RestClient{
 
-    static function call($method, $callData = array(),String $apiChoice)    {
+    static function call($method, $callData = array(),String $apiChoice="")    {
 
         //State the request header
         $requestHeader = array('reqquesttype' => $method);
@@ -35,6 +35,7 @@ class RestClient{
             break;
             
             default:
+                $result = file_get_contents(API_URL, false, $context);
             break;
         }
         
