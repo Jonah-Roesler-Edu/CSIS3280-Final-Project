@@ -22,7 +22,7 @@ class Patron extends CI_Controller {
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('age', 'Age', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('password2', 'Password confirmation', 'required');
+        $this->form_validation->set_rules('password2', 'Password confirmation', 'required|matches[password]');
 
 
         $data['title'] = "Register"; 
