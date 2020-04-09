@@ -1,5 +1,8 @@
 <?php
 
+//CI form validation from
+//https://codeigniter.com/userguide3/libraries/form_validation.html?highlight=password%20match#setting-validation-rules
+
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
@@ -32,6 +35,11 @@ class Patron extends CI_Controller {
             $this->load->view('patron/registrationForm');
             $this->load->view('templates/footer');
 
+        }
+        else{
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/registrationSuccess');
+            $this->load->view('templates/footer');
         }
 
 

@@ -79,8 +79,9 @@ class User{
     public function setAge(int $age) {
         $this->Age = $age;
     }
-    public function setPass(string $pass) {
-        $this->Pass = $pass;
+    
+    public function setPass($input){  
+        $this->Pass= password_hash($input, PASSWORD_DEFAULT); 
     }
 
     // verify password

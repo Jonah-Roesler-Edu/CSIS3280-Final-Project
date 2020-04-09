@@ -1,7 +1,7 @@
 <div class="header">
   <h1>Login</h1>
 
-  <from method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
+  <form method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
     <table>
       <tr>
         <td>UserName</td>
@@ -16,7 +16,7 @@
       <td><input type="submit" name="register" value="Login"></td>
     </tr>
     </table>
-  </from>
+  </form>
 
 </div> 
 <div class="header">
