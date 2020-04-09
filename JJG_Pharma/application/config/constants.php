@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 define('API_URL',  'http://localhost/JJG_Pharma/RestComponents/RestAPI.php');
 
+define('API_REGISTER',  'http://localhost/JJG_Pharma/RestComponents/RegisterAPI.php');
+define('API_PROFILE',  'http://localhost/JJG_Pharma/RestComponents/ProfileAPI.php');
+define('API_MEDICINE',  'http://localhost/JJG_Pharma/RestComponents/MedicineAPI.php');
+define('API_TRANSACTION',  'http://localhost/JJG_Pharma/RestComponents/TransactionAPI.php');
+
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
