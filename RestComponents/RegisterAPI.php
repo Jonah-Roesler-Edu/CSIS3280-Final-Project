@@ -61,12 +61,23 @@ switch ($_SERVER["REQUEST_METHOD"])   {
 
     break;
 
-    //If there was a request with an id return that customer, if not return all of them!
+    
     case "GET":
+        //in this api, we are checking a user's password for login if it checks out, then we'll just send back the username
+
         // $users = UserDAO::getUsers();
-        $user = UserDAO::getUser(1);
-        header('Content-Type: application/json');
-        echo json_encode($user->jsonSerialize());
+        $user = UserDAO::getUser($requestData->userLogin);
+
+        //if the password is correct then send back the user
+        if($user !== false){
+            if($user->verifyPassword($requestData->passLogin)){
+                header('Content-Type: application/json');
+                echo json_encode($user->jsonSerialize());
+            }
+        }
+
+        //if not then send back false
+
         // if (isset($requestData->id))    {
 
     //         //Return the customer object

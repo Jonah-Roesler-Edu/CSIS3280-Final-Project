@@ -4,11 +4,14 @@
 
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
+require_once(APPPATH . "classes/LoginManager.class.php");
 
 class MyController extends CI_Controller {
 
     
     public function index() {
+        LoginManager::verifyLogin();
+        var_dump($_SESSION);
         echo "TEST INDEX";
     }
 

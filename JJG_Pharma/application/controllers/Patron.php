@@ -45,34 +45,61 @@ class Patron extends CI_Controller {
 
     }
 
-    public function login()
+
+
+    public function login($page = "login")
     {
+        
+        //check if the user is already logged in
         if(LoginManager::verifyLogin()){
-       
-        }
-        // var_dump($_SESSION);
-        // $_SESSION["loggedin"] = "chimmy";
-        var_dump($_SESSION);
-        echo "hello";
-            if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
-        {
-                // Whoops, we don't have a page for that!
-                show_404();
-        }
+            //if they're logged in send them somewhere (probably browse)
+            //for now just simple page to say they're logged in.
+            $data['title'] = "Login";
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/loginSuccess', $data);
+            $this->load->view('templates/footer', $data);
+        } else{
+            //if the user isn't logged in
+             //check post for the login info and validate
+             if(isset($_POST) && !empty($_POST)){
+                // UserDAO::initialize();
+            
+                $user = RestClient::call("GET",$_POST,"register");
+                var_dump($user);
+                if($user !== false && $user != null){
+                    $data['title'] = "Login";
+                    $_SESSION['loggedin'] = $user->UserName;
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/loginSuccess', $data);
+                    $this->load->view('templates/footer', $data);
+                } 
 
+            } else{
+                //if there is no post data load the form
+                $this->load->helper('form');
+                $this->load->library('form_validation');
 
+                $this->form_validation->set_rules('userLogin', 'username', 'required');
+                $this->form_validation->set_rules('passLogin', 'password', 'required');
 
-        if(!empty($_POST)){
-            if($_POST["action"] == "login"){
+                if ($this->form_validation->run() === FALSE){
+                    //if the form isn't filled out or didn't validate
+                    //sshow the form
+                    $data['title'] = "Login"; 
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/loginform', $data);
+                    $this->load->view('templates/footer', $data);
+                }
 
             }
         }
+    }//end login
 
+    public function logout(){
+        
+        session_start();
+        session_destroy();
+        echo anchor('JJG_Pharma/index.php/login', 'Login again!'); 
 
-        $data['title'] = "Login"; 
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('pages/'.$page, $data);
-        $this->load->view('templates/footer', $data);
-        }
+    }
 }
