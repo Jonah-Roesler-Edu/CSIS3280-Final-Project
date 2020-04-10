@@ -41,6 +41,20 @@ class Medicine{
     public function setDescription(string $desc) {
         $this->Description = $desc;
     }
+      public function jsonSerialize() {
+ 
+        //using this method here because there is no sensitive data recorded
+        // $obj = get_object_vars($this);
+        // return $obj;
+
+        $medicinejs = new stdClass;
+        $medicinejs->MedicineID = $this->MedicineID;
+        $medicinejs->MedicineName = $this->MedicineName;
+        $medicinejs->Treatment = $this->Treatment;
+        $medicinejs->Description = $this->Description;
+       
+        return $medicinejs;
+    }
 
 }
 
