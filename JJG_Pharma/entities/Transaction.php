@@ -28,7 +28,7 @@
         private $TransactionID;
         private $ClientID;
         private $MedicineID;
-        // private $PrescriptionID;
+        private $PrescriptionID;
         // private $MedicineName;
         private $Price;
         private $TransDate;
@@ -47,9 +47,9 @@
         // public function getClientName() {
         //     return $this->ClientName;
         // }
-        // public function getPrescriptionID() {
-        //     return $this->PrescriptionID;
-        // }
+        public function getPrescriptionID() {
+            return $this->PrescriptionID;
+        }
         // public function getMedicineName() {
         //     return $this->MedicineName;
         // }
@@ -70,9 +70,9 @@
         public function setClientName($newName) {
             $this->ClientName = $newName;
         }
-        // public function setPrescriptionID($newPrescription) {
-        //     $this->PrescriptionID = $newPrescription;
-        // }
+        public function setPrescriptionID($newPrescription) {
+            $this->PrescriptionID = $newPrescription;
+        }
         // public function setMedicineName($newMed) {
         //     $this->MedicineName = $newMed;
         // }

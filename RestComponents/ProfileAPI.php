@@ -76,7 +76,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
         //Set the header
         header('Content-Type: application/json');
         //Barf out the JSON version
-        echo json_encode($scd->jsonSerialize());
+        echo json_encode($su->jsonSerialize());
         echo json_encode($scd->jsonSerialize());
 
     } else {

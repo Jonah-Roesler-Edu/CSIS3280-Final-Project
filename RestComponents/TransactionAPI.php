@@ -83,7 +83,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
         $et = new Transaction();
         $et->setClientID($requestData->ClientID);
         $et->setMedicineID($requestData->MedicineID);
-        $et->setPrescriptionID($requestData->PrescriptionID);
+        // $et->setPrescriptionID($requestData->PrescriptionID);
         $et->setTransDate($requestData->TransDate);
        
         $result = TransactionDAO::updateTransaction($em);

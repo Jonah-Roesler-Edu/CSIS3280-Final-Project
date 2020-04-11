@@ -5,6 +5,9 @@ require_once('config.php');
 
 // require entities
 require_once('entities/Medicine.php');
+// require_once('JJG_Pharma\application\classes\Medicine.php');
+// require_once('JJG_Pharma\entities\Medicine.php');
+
 
 //Require Utillity Classes
 require_once('PDOAgent.class.php');

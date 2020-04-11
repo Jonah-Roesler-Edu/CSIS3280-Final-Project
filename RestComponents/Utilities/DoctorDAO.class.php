@@ -1,38 +1,34 @@
 <?php
 
 
-
-class ClientDAO    {
+// private $DoctorID;
+// private $DoctorType;
+// private $UserID;
+class DoctorDAO    {
 
 private static $_db;
 
 static function initialize()    {
 
     //Initialize the database connection
-    self::$_db = new PDOAgent('Client');
+    self::$_db = new PDOAgent('Doctor');
 
 }
 
-// CREATE TABLE Client(
-//     ClientID INT(11) NOT NULL AUTO_INCREMENT,
-//     UserID INT(11) NOT NULL,
-//     PRIMARY KEY(ClientID),
-//     FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE
-// );
-
 //CREATE a single Client
-static function createClient(Client $newClient): int   {
+static function createDoctor(Doctor $newDoctor): int   {
 
     //Generate the INSERT STATEMENT for the user;
-   $sql = "INSERT INTO Client (ClientID, UserID)
-            VALUES (:clientid, :userid);";
+   $sql = "INSERT INTO Doctor (DoctorID, DoctorType, UserID)
+            VALUES (:doctorid, :doctortype, :userid);";
 
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
-   self::$_db->bind(":clientid", $newClient->getClientID());
-   self::$_db->bind(":userid", $newClient->getMedicineID());
+   self::$_db->bind(":doctorid", $newDoctor->getDoctorID());
+   self::$_db->bind(":doctortype", $newDoctor->getDoctorType());
+   self::$_db->bind(":userid", $newDoctor->getMedicineID());
 
     //Execute the query
     self::$_db->execute();
@@ -43,10 +39,10 @@ static function createClient(Client $newClient): int   {
 }
 
 //READ a single Client
-static function getClient($id){
+static function getDoctor($id){
 
-    $sql = "SELECT * FROM Client
-            WHERE ClientID = :id;";
+    $sql = "SELECT * FROM Doctor
+            WHERE DoctorID = :id;";
 
     //prepare the query
     self::$_db->query($sql);
@@ -62,10 +58,10 @@ static function getClient($id){
 }
 
 //READ a list of Client
-static function getClients(){
+static function getDoctors(){
 
     //Prepare the query
-    $sql = "SELECT * FROM Client;";
+    $sql = "SELECT * FROM Doctor;";
     self::$_db->query($sql);
     //Execute the query
     self::$_db->execute();
@@ -74,27 +70,21 @@ static function getClients(){
 }
 
 //UPDATE 
-static function updateClient(Client $Client): int   {
-   
-// CREATE TABLE Client(
-//     ClientID INT(11) NOT NULL AUTO_INCREMENT,
-//     UserID INT(11) NOT NULL,
-//     PRIMARY KEY(ClientID),
-//     FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE
-// );
+static function updateDoctor(Doctor $doctor): int   {
 
         //Create the query
-        //can't update the password here
-        $sql = "UPDATE Client
-                SET ClientID = :clientid,
+        $sql = "UPDATE Doctor
+                SET DoctorID = :doctorid,
+                DoctorType = :doctortype,
                 UserID = :userid
-                WHERE ClientID = :id;";
+                WHERE DoctorID = :id;";
         //Query...
         self::$_db->query($sql);
 
         //Bind
-        self::$_db->bind(":clientid", $Client->getClientID());
-        self::$_db->bind(":userid", $Client->getUserID());
+        self::$_db->bind(":doctorid", $doctor->getClientID());
+        self::$_db->bind(":doctortype", $doctor->getDoctorType());
+        self::$_db->bind(":userid", $doctor->getUserID());
         
         //Execute the query
         self::$_db->execute();
@@ -104,10 +94,10 @@ static function updateClient(Client $Client): int   {
 }
 
 //DELETE
-static function deleteClient(int $id): int {
+static function deleteDoctor(int $id): int {
     try {
-        $sql = "DELETE FROM Client
-            WHERE ClientID=:id;";
+        $sql = "DELETE FROM Doctor
+            WHERE DoctorID=:id;";
     self::$_db->query($sql);
     //bind
     self::$_db->bind(":id",$id);

@@ -26,7 +26,7 @@
                         echo "</td>";
                         ?>
                         <td>
-                        <form method = "GET" enctype="multipart/form-data">
+                        <form method = "POST" enctype="multipart/form-data">
                             <input type="hidden" name="medicineid" value="<?php echo $medicine->getMedicineID() ?>">
                             <input type="submit" name="Purchase" value="Purchase">
                         </form>

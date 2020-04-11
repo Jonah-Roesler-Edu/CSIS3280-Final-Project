@@ -128,4 +128,41 @@ class Patron extends CI_Controller {
         }
 
     }
+
+    public function medicine(){
+
+        if($_SERVER["REQUEST_METHOD"] == "GET") {
+            $load = array();
+            RestClient::call("GET", $load, "medicine");
+            
+        }
+
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            //if PURCHASE was pressed
+            //verify login
+            if(isset($_POST['medicineid']) && !empty($_POST['medicineid'])) {
+
+                //IF LOGIN = FALSE >> backto login
+                if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+                    //if no one is logged in then send them back to the login page
+                    //or whatever (maybe browse)
+                    $this->load->helper('form');
+                    $this->load->library('form_validation');
+        
+                    $data['title'] = "Login"; 
+                            $this->load->view('templates/header', $data);
+                            $this->load->view('patron/loginform', $data);
+                            $this->load->view('templates/footer', $data);
+                } else {
+                //LOGIN = TRUE >> PROCESS TRANSACT
+                    $transactionData = array(
+                        "userid" => $_SESSION['loggedin'],
+                        "medicineid" => $_GET['medicineid'],
+                        "date" => getdate("Y-m-d")
+                    );
+                    RestClient::call("POST", $transactionData, "transaction");
+                }
+            }
+        }
+    }
 }

@@ -1,6 +1,5 @@
 
 <div class="container">
-
     <div class = "row">
         <h3>Your Doctors</h3>
     </div>
@@ -23,7 +22,7 @@
                         echo $doctor->getDoctorType();
                         echo "</td>";
                         echo "<td>";
-                        echo $medicine->getDescription();
+                        echo $doctor->getDoctorEmail();
                         echo "</td>";
                         ?>
                         <td>
@@ -62,7 +61,7 @@
                         echo $doctor->getDoctorType();
                         echo "</td>";
                         echo "<td>";
-                        echo $medicine->getDescription();
+                        echo $medicine->getDoctorEmail();
                         echo "</td>";
                         ?>
                         <td>
