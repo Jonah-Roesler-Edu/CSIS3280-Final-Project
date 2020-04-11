@@ -7,6 +7,7 @@
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
 
+
 class Patron extends CI_Controller {
 
     public function index() {
@@ -100,6 +101,31 @@ class Patron extends CI_Controller {
         session_start();
         session_destroy();
         echo anchor('JJG_Pharma/index.php/login', 'Login again!'); 
+
+    }//end logout
+
+    public function profile(){
+
+        if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+            //if no one is logged in then send them back to the login page
+            //or whatever (maybe browse)
+            $this->load->helper('form');
+            $this->load->library('form_validation');
+
+            $data['title'] = "Login"; 
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/loginform', $data);
+                    $this->load->view('templates/footer', $data);
+
+        } else{
+            //if logged in then show the user their info with an option to update it
+            ?> user info will be here<?php
+            //first get the user info from the database
+
+            //next print it to the table
+
+
+        }
 
     }
 }

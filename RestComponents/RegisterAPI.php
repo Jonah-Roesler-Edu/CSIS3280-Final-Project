@@ -8,6 +8,7 @@ require_once('config.php');
 require_once('entities\Client.php');
 
 require_once('entities\User.php');
+// require_once('..\JJG_Pharma\application\entities\User.php');
 
 // require_once('..\JJG_Pharma\application\entities\User.class.php');
 
