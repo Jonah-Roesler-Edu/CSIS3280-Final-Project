@@ -7,8 +7,8 @@ require_once('config.php');
 //Require Entities
 require_once('entities\Client.php');
 
-require_once('entities\User.php');
-// require_once('..\JJG_Pharma\application\entities\User.php');
+// require_once('entities\User.php');
+require_once('..\JJG_Pharma\application\entities\User.php');
 
 // require_once('..\JJG_Pharma\application\entities\User.class.php');
 
@@ -43,20 +43,32 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     case "POST":    //Picked up a POST, Its Insert time!
   
          //New User 
-        
-    $newUser = new User();
-    $newUser->setfirstName($requestData->firstname);
-    $newUser->setLastName($requestData->lastname);
-    $newUser->setUserName($requestData->username);
-    $newUser->setEmail($requestData->email);
-    $newUser->setPhone($requestData->phone);
-    $newUser->setGender($requestData->gender);
-    $newUser->setAge($requestData->age);
-    $newUser->setPass($requestData->password);
+    //first make sure there is no user with the same username
+    $oldUser = UserDAO::getUser($requestData->username);
 
-    $result = UserDAO::createUser($newUser);
-    //Return the results
-    echo json_encode($result);
+    if($oldUser === false){
+        $newUser = new User();
+        $newUser->setfirstName($requestData->firstname);
+        $newUser->setLastName($requestData->lastname);
+        $newUser->setUserName($requestData->username);
+        $newUser->setEmail($requestData->email);
+        $newUser->setPhone($requestData->phone);
+        $newUser->setGender($requestData->gender);
+        $newUser->setAge($requestData->age);
+        $newUser->setPass($requestData->password);
+        $result = UserDAO::createUser($newUser);
+        //need to create a new client entry
+        
+        //and put it in the client table
+        //result should be the newest id so
+        // ClientDAO::createClient($result);
+        //Return the results
+        echo json_encode($result);
+
+    }   
+
+    
+
 
        
 
