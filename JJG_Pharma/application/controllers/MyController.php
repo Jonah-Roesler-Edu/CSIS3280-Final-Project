@@ -4,6 +4,7 @@
 
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
+require_once(APPPATH . "/classes/Medicine.php");
 
 class MyController extends CI_Controller {
 
@@ -31,7 +32,7 @@ class MyController extends CI_Controller {
 
     }
 
-    public function test($page = 'search')
+    public function test($page = 'medicine')
     {
         if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
         {
@@ -42,22 +43,31 @@ class MyController extends CI_Controller {
         //data associative array = array of objects from $page
         $data['title'] = ucfirst($page); //ucfirst = uppercase first letter
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            var_dump($_POST);
-            $testArray = array(
-                "test value" => $_POST["action"],
-                "hello" => "Hello there!"
-            );
-            $returnMessage = RestClient::call("POST", $testArray);
-            var_dump($returnMessage);
+        $testArray = array( "test" => "hello"
+        );
+
+        $returnMessage = RestClient::call("GET", $testArray, "medicine");
+        var_dump($returnMessage);
+        $medicines = array();
+        foreach($returnMessage as $stdMed) {
+            $newMed = new Medicine();
+            $newMed->setMedicineID($stdMed->MedicineID);
+            $newMed->setMedicineName($stdMed->MedicineName);
+            $newMed->setTreatment($stdMed->Treatment);
+            $newMed->setDescription($stdMed->Description);
+            $medicines[] = $newMed;
         }
+
+        $data['medicines'] = $medicines;
+
+        //load helpers
+        $this->load->helper(array('html', 'url'));
 
         //view("PATH", PASS_DATA)
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/links', $data);
+        // $this->load->view('templates/links', $data);
         $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer', $data);
-
     }
 
 }

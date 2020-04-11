@@ -7,7 +7,7 @@ require_once('config.php');
 require_once('entities/Medicine.php');
 
 //Require Utillity Classes
-require_once('Utilities/PDOAgent.class.php');
+require_once('PDOAgent.class.php');
 require_once('Utilities/MedicineDAO.class.php');
 
 /*
@@ -65,12 +65,12 @@ switch ($_SERVER["REQUEST_METHOD"])   {
         //All the customers!
         $medicines = MedicineDAO::getAllMedicine();
         
-        
         //Walk the customers and add them to a serialized array to return.
         $serializedMedicine = array();
 
+        //PLEASE DONT PUT VAR DUMPS IN HERE AS IT BREAKS IT
         foreach ($medicines as $medicine)    {
-            var_dump($medicine);
+            // var_dump($medicine);
             $serializedMedicine[] = $medicine->jsonSerialize();
         }
        

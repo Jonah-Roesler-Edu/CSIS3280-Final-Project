@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class = "row">
-        <h3>Medicine List</h3>
+        <h1>Medicine List</h1>
     </div>
     <div class = "row">
         <table>
@@ -12,8 +12,7 @@
                 <!-- <th>Price</th> -->
             </thead>
             <tbody>
-                <?php
-                foreach($medicines as $medicine) {
+                <?php foreach($medicineArr as $medicine) {
                     echo "<tr>";
                         echo "<td>";
                         echo $medicine->getMedicineName();
@@ -27,9 +26,15 @@
                         ?>
                         <td>
                         <form method = "GET" enctype="multipart/form-data">
-                            <input type="hidden" name="medicineid" value="<?php echo $medicine->getMedicineID() ?>">
-                            <input type="submit" name="Purchase" value="Purchase">
+                            <input type="hidden" name="medicineid" value="<?php echo $medicine->getMedicineID ?>">
+                            <input type="submit" name="addtocart" value="Add to cart">
                         </form>
+                        </td>
+                        <td>
+                            <form method = "GET" enctype="multipart/form-data">
+                                <input type="hidden" name="medicineid" value="<?php echo $medicine->getMedicineID ?>">
+                                <input type="submit" name="removecart" value="remove from cart">
+                            </form>
                         </td>
                         <?php
                     echo "</tr>";  
