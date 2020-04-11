@@ -20,7 +20,7 @@
       <h2>JJG Pharmacy</h2>
     </div>
     <div class="row" style="background-color:#dcd3e3">
-    <div class = "column"><h3><?php echo anchor("index.php/home", "Home") ?></h3></div>
+        <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/login", "Login") ?></h3></div>
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/profile", "Profile") ?></h3></div>
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/medicine", "Medicine") ?></h3></div>
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/transaction", "Purchases") ?></h3></div>

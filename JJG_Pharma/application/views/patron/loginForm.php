@@ -3,7 +3,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('JJG_Pharma/index.php/patron/login'); 
+<?php echo form_open('JJG_Pharma/index.php/login'); 
 //for some reason needed a more complete path than tutorial...
 ?>
 
@@ -23,3 +23,6 @@
     </tr>
     </table>
   </form>
+
+  <?php
+  echo anchor("JJG_Pharma/index.php/register","not a member? Click here to register");
