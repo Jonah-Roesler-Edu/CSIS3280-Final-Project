@@ -19,7 +19,7 @@ class RestClient{
         );
 
         $context = stream_context_create($options);
-        
+        // $result = file_get_contents(API_URL, false, $context);
         switch($apiChoice) {
             case "register":
                 $result = file_get_contents(API_REGISTER, false, $context);
@@ -32,6 +32,9 @@ class RestClient{
             break;
             case "transaction":
                 $result = file_get_contents(API_TRANSACTION, false, $context);
+            break;
+            case "test":
+                $result = file_get_contents(API_URL, false, $context);
             break;
             
             default:

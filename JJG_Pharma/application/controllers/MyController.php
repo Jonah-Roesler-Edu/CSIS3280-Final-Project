@@ -4,6 +4,7 @@
 
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
+require_once(APPPATH . "/classes/Medicine.php");
 
 class MyController extends CI_Controller {
 
@@ -42,14 +43,22 @@ class MyController extends CI_Controller {
         //data associative array = array of objects from $page
         $data['title'] = ucfirst($page); //ucfirst = uppercase first letter
 
-            var_dump($_GET);
-            $testArray = array(
-                "test value" => "test",
-                "hello" => "Hello there!"
-            );
-            $returnMessage = json_decode(RestClient::call("GET", $testArray, "medicine"));
-            var_dump($returnMessage);
+        $testArray = array( "test" => "hello"
+        );
 
+        $returnMessage = RestClient::call("GET", $testArray, "medicine");
+        var_dump($returnMessage);
+        $medicines = array();
+        foreach($returnMessage as $stdMed) {
+            $newMed = new Medicine();
+            $newMed->setMedicineID($stdMed->MedicineID);
+            $newMed->setMedicineName($stdMed->MedicineName);
+            $newMed->setTreatment($stdMed->Treatment);
+            $newMed->setDescription($stdMed->Description);
+            $medicines[] = $newMed;
+        }
+
+        $data['medicines'] = $medicines;
 
         //load helpers
         $this->load->helper(array('html', 'url'));
