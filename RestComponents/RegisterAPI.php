@@ -28,6 +28,7 @@ DELETE  - DELETE - DELETE
 // CustomerMapper::initialize();
 
 UserDAO::initialize();
+ClientDAO::initialize();
 
 //Pull the request data
 // parse_str(file_get_contents('php://input'), $requestData);
@@ -58,10 +59,11 @@ switch ($_SERVER["REQUEST_METHOD"])   {
         $newUser->setPass($requestData->password);
         $result = UserDAO::createUser($newUser);
         //need to create a new client entry
-        
+        $client = new Client();
+        //$result should be the newest id so
+        $client->setUserID($result);
         //and put it in the client table
-        //result should be the newest id so
-        // ClientDAO::createClient($result);
+         ClientDAO::createClient($client);
         //Return the results
         echo json_encode($result);
 
@@ -76,6 +78,21 @@ switch ($_SERVER["REQUEST_METHOD"])   {
 
     
     case "GET":
+        //if checking the username for a registration
+        if(isset($requestData->tocheck)){
+            $oldUser = UserDAO::getUser($requestData->tocheck);
+            if($oldUser === false){
+                $sendBack = false;
+            } else{
+                $sendBack = true;
+            }
+
+
+            header('Content-Type: application/json');
+                echo json_encode(array("ok" => $sendBack));
+        }else{
+
+
         //in this api, we are checking a user's password for login if it checks out, then we'll just send back the username
 
         // $users = UserDAO::getUsers();
@@ -88,7 +105,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
                 echo json_encode($user->jsonSerialize());
             }
         }
-
+    }
         //if not then send back false
 
         // if (isset($requestData->id))    {

@@ -28,14 +28,14 @@ class Patron extends CI_Controller {
 
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
-        $this->form_validation->set_rules('username', 'User name', 'required');
+        $this->form_validation->set_rules('username', 'User name', 'callback_username_check');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('phone', 'Phone', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('age', 'Age', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
         $this->form_validation->set_rules('password2', 'Password confirmation', 'required|matches[password]');
-
+        
 
         $data['title'] = "Register"; 
         if ($this->form_validation->run() === FALSE)
@@ -54,6 +54,24 @@ class Patron extends CI_Controller {
 
     }
 
+    public function username_check($str)
+        {
+            //send a call to the 'API to check if the username is ok
+            //first assemble the data to send
+            $toCheck = array("tocheck" => $str);
+
+             $checked = RestClient::call("GET",$toCheck,"register");
+
+                if ($checked->ok)
+                {
+                        $this->form_validation->set_message('username_check', 'The username is already taken');
+                        return FALSE;
+                }
+                else
+                {
+                        return TRUE;
+                }
+        }
 
 
     public function login($page = "login")
