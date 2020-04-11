@@ -47,7 +47,7 @@ class MyController extends CI_Controller {
         );
 
         $returnMessage = RestClient::call("GET", $testArray, "medicine");
-        var_dump($returnMessage);
+        // var_dump($returnMessage);
         $medicines = array();
         foreach($returnMessage as $stdMed) {
             $newMed = new Medicine();
