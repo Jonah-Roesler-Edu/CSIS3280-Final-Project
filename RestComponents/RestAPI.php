@@ -58,8 +58,11 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     //Return the results
     // var_dump($result);
     $user = UserDAO::getUser(1);
+    $userarr = array( "message"=>$result);
+    // $userarr[] = $user->jsonSerialize();
     header('Content-Type: application/json');
-    echo json_encode($user->jsonSerialize());
+
+    echo json_encode($user);
     // echo json_encode(array("message"=> $result));
 
     break;
@@ -67,9 +70,18 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     //If there was a request with an id return that customer, if not return all of them!
     case "GET":
         // $users = UserDAO::getUsers();
-        $user = UserDAO::getUser(1);
+        $oneuser = UserDAO::getUser(1);
+
+        $users = UserDAO::getUsers();
+        $jsonUsers = array();
+        foreach($users as $user ) {
+            $jsonUsers[] = $user->jsonSerialize();
+        }
+        // $userarr = array( "message"=>"hello");
+
+
         header('Content-Type: application/json');
-        echo json_encode($user->jsonSerialize());
+        echo json_encode($jsonUsers)  ;
         // if (isset($requestData->id))    {
 
     //         //Return the customer object

@@ -53,9 +53,9 @@
         // public function getMedicineName() {
         //     return $this->MedicineName;
         // }
-        public function getPrice() {
-            return $this->Price;
-        }
+        // public function getPrice() {
+        //     return $this->Price;
+        // }
         public function getTransDate() {
             return $this->TransDate;
         }
@@ -76,9 +76,9 @@
         // public function setMedicineName($newMed) {
         //     $this->MedicineName = $newMed;
         // }
-        public function setPrice($newPrice) {
-            $this->Price = $newPrice;
-        }
+        // public function setPrice($newPrice) {
+        //     $this->Price = $newPrice;
+        // }
         public function setTransDate($newDate) {
             $this->TransDate = $newDate;
         }
