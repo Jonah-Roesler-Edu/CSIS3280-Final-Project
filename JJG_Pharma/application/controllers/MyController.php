@@ -4,11 +4,8 @@
 
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
-<<<<<<< HEAD
 require_once(APPPATH . "classes/LoginManager.class.php");
-=======
 require_once(APPPATH . "/classes/Medicine.php");
->>>>>>> 55b9cb0a5b0de31b347043f1ac18826648176399
 
 class MyController extends CI_Controller {
 

@@ -10,6 +10,14 @@ require_once(APPPATH . "/classes/LoginManager.class.php");
 
 class Patron extends CI_Controller {
 
+    public function __construct()
+    {
+            parent::__construct();
+            
+            // $this->load->helper('url_helper');
+            $this->load->helper(array('html', 'url'));
+    }
+
     public function index() {
         echo "TEST INDEX";
     }
