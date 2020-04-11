@@ -7,7 +7,7 @@ require_once('config.php');
 require_once('entities/Medicine.php');
 
 //Require Utillity Classes
-require_once('Utilities/PDOAgent.class.php');
+require_once('PDOAgent.class.php');
 require_once('Utilities/MedicineDAO.class.php');
 
 /*

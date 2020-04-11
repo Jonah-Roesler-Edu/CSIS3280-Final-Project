@@ -31,7 +31,7 @@ class MyController extends CI_Controller {
 
     }
 
-    public function test($page = 'search')
+    public function test($page = 'medicine')
     {
         if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
         {
@@ -42,22 +42,23 @@ class MyController extends CI_Controller {
         //data associative array = array of objects from $page
         $data['title'] = ucfirst($page); //ucfirst = uppercase first letter
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            var_dump($_POST);
+            var_dump($_GET);
             $testArray = array(
-                "test value" => $_POST["action"],
+                "test value" => "test",
                 "hello" => "Hello there!"
             );
-            $returnMessage = RestClient::call("POST", $testArray);
+            $returnMessage = json_decode(RestClient::call("GET", $testArray, "medicine"));
             var_dump($returnMessage);
-        }
+
+
+        //load helpers
+        $this->load->helper(array('html', 'url'));
 
         //view("PATH", PASS_DATA)
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/links', $data);
+        // $this->load->view('templates/links', $data);
         $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer', $data);
-
     }
 
 }
