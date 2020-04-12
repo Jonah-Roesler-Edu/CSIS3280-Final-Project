@@ -8,7 +8,6 @@ require_once('entities/User.php');
 require_once('entities/Client_Doctor.php');
 
 //Require Utillity Classes
-// require_once('Utilities/PDOAgent.class.php');
 require_once('PDOAgent.class.php');
 require_once('Utilities/UserDAO.class.php');
 require_once('Utilities/Client_DoctorDAO.class.php');
@@ -49,7 +48,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     $nu->setAge($requestData->Age);
     $nu->setPass($requestData->Pass);
 
-    $result = UserDAO::createUser($nu);
+    $result = UserDAO::createMedicine($nu);
 
     $ncd = new Client_Doctor();
     $ncd->setClientID($requestData->ClientID);
@@ -78,7 +77,6 @@ switch ($_SERVER["REQUEST_METHOD"])   {
         header('Content-Type: application/json');
         //Barf out the JSON version
         echo json_encode($su->jsonSerialize());
-        echo json_encode($scd->jsonSerialize());
         
 
     } else {
