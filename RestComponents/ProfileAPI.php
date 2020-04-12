@@ -69,16 +69,17 @@ switch ($_SERVER["REQUEST_METHOD"])   {
       
     if (isset($requestData->id))    {
 
-        //Return the customer object
+        //Return the user object
         $su = UserDAO::getUser($requestData->id);
 
-        $scd = Client_DoctorDAO::getClient_Doctor($requestData->id);
+        // $scd = Client_DoctorDAO::getClient_Doctor($requestData->id);
 
         //Set the header
         header('Content-Type: application/json');
         //Barf out the JSON version
         echo json_encode($su->jsonSerialize());
         echo json_encode($scd->jsonSerialize());
+        
 
     } else {
 
@@ -113,30 +114,29 @@ switch ($_SERVER["REQUEST_METHOD"])   {
 
         //Must be an update, build the new medicine object
         $eu = new User();
-        $eu->setUser($requestData->id);
+      
         $eu->setFirstName($requestData->FirstName);
         $eu->setLastName($requestData->LastName);
-        $eu->setUserName($requestData->UserName);
         $eu->setEmail($requestData->Email);
         $eu->setPhone($requestData->Phone);
         $eu->setGender($requestData->Gender);
         $eu->setAge($requestData->Age);
-        $eu->setPass($requestData->Pass);
+        $eu->setUserName($requestData->UserName);
+        
        
         $result = UserDAO::updateUser($eu);
 
 
-        $ecd = new Client_Doctor();
-        $ecd->setClientID($requestData->id);
-        $ecd->setDoctorID($requestData->id);
-        $result2 = Client_DoctorDAO::updateClient_Doctor();
+        // $ecd = new Client_Doctor();
+        // $ecd->setClientID($requestData->id);
+        // $ecd->setDoctorID($requestData->id);
+        // $result2 = Client_DoctorDAO::updateClient_Doctor();
 
 
         //Set the header
         header('Content-Type: application/json');
         //Return the number of rows affected
         echo json_encode($result);
-        echo json_encode($result2);
         
 
 
@@ -145,14 +145,14 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     case "DELETE":
         //In YARC send the request as key=value
         //Pull the ID, send it to delete via the customer mapper and return the result.
-        $result = UserDAO::deleteUser($requestData->id);
+        $result = UserDAO::deleteUser($requestData->username);
 
-        $result2 = Client_DoctorDAO::deleteClient_Doctor($requestData->id);
+        
         //Set the header
         header('Content-Type: application/json');
         //return the confirmation of deletion
         echo json_encode($result);
-        echo json_encode($result2);
+        
         
     break; 
 

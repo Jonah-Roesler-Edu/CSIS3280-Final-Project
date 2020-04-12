@@ -7,6 +7,8 @@
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
 require_once("entities/Medicine.php");
+require_once(APPPATH . "/entities/User.php");
+
 
 class Patron extends CI_Controller {
 
@@ -87,40 +89,69 @@ class Patron extends CI_Controller {
             $this->load->view('templates/footer', $data);
         } else{
             //if the user isn't logged in
-             //check post for the login info and validate
-             if(isset($_POST) && !empty($_POST)){
-                // UserDAO::initialize();
+            //validate the form
+            $this->load->helper('form');
+            $this->load->library('form_validation');
+
+            // $this->form_validation->set_rules('userLogin', 'User name', 'callback_username_check_login');
+            $this->form_validation->set_rules('userLogin', 'username', 'required');
+            $this->form_validation->set_rules('passLogin', 'password', 'required');
+
+            if ($this->form_validation->run() === FALSE){
+                //if the form isn't filled out or didn't validate
+                //sshow the form
+                $data['title'] = "Login"; 
+                $this->load->view('templates/header', $data);
+                $this->load->view('patron/loginform', $data);
+                $this->load->view('templates/footer', $data);
             
-                $user = RestClient::call("GET",$_POST,"register");
-                var_dump($user);
-                if($user !== false && $user != null){
-                    $data['title'] = "Login";
-                    $_SESSION['loggedin'] = $user->UserName;
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('patron/loginSuccess', $data);
-                    $this->load->view('templates/footer', $data);
-                } 
-
             } else{
-                //if there is no post data load the form
-                $this->load->helper('form');
-                $this->load->library('form_validation');
-
-                $this->form_validation->set_rules('userLogin', 'username', 'required');
-                $this->form_validation->set_rules('passLogin', 'password', 'required');
-
-                if ($this->form_validation->run() === FALSE){
-                    //if the form isn't filled out or didn't validate
-                    //sshow the form
-                    $data['title'] = "Login"; 
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('patron/loginform', $data);
-                    $this->load->view('templates/footer', $data);
+                    //check post for the login info and validate
+                if(isset($_POST) && !empty($_POST)){
+                    // UserDAO::initialize();
+                
+                    $user = RestClient::call("GET",$_POST,"register");
+                    var_dump($user);
+                    if(!isset($_SESSION)){
+                        session_start();
+                    }
+                    $data['title'] = "";
+                    if($user !== false && $user != null){
+                        $_SESSION['loggedin'] = $user->UserName;
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('patron/loginSuccess', $data);
+                        $this->load->view('templates/footer', $data);
+                    } else{
+                        session_destroy();
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('patron/loginFailed', $data);
+                        $this->load->view('patron/loginForm', $data);
+                        $this->load->view('templates/footer', $data);
+                    }
                 }
-
             }
         }
     }//end login
+
+    public function username_check_login($str)
+    {
+        //send a call to the 'API to check if the username is ok
+        //first assemble the data to send
+        $toCheck = array("tocheck" => $str);
+
+         $checked = RestClient::call("GET",$toCheck,"register");
+
+            if ($checked->ok===false)
+            {
+                    $this->form_validation->set_message('username_check_login', "The username doesn't exist");
+                    return FALSE;
+            }
+            else
+            {
+                    return TRUE;
+            }
+    }
+
 
     public function logout(){
         
@@ -144,15 +175,118 @@ class Patron extends CI_Controller {
                     $this->load->view('templates/footer', $data);
 
         } else{
+
+            //if there is post data then it is time to update
+            if(isset($_POST) && !empty($_POST)){
+                var_dump($_POST);
+                // $user = new User();
+                
+                // $user->setFirstName($_POST["firstname"]);
+                // $user->setLastName($_POST["lastname"]);
+                // $user->setEmail($_POST["email"]);
+                // $user->setPhone($_POST["phone"]);
+                // $user->setGender($_POST["gender"]);
+                // $user->setAge($_POST["age"]);
+                $postData = array(
+                    "UserName" => $_SESSION["loggedin"],
+                    "FirstName" => $_POST["firstname"],
+                    "LastName" => $_POST["lastname"],
+                    "Email" => $_POST["email"],
+                    "Phone" => $_POST["phone"],
+                    "Gender" => $_POST["gender"],
+                    "Age" => $_POST["age"]
+                    
+                );
+                //Call the RestClient with PUT
+                $changedRows = RestClient::call("PUT",$postData,"profile");
+
+               
+            }
+        
+
             //if logged in then show the user their info with an option to update it
-            ?> user info will be here<?php
+            
             //first get the user info from the database
-
+            $requestData = array("id" => $_SESSION["loggedin"]);
+            $juser = RestClient::call("GET",$requestData,"profile");
             //next print it to the table
+            // var_dump($juser);
+            $user = new User();
+            $user->setUserID($juser->UserID);
+            $user->setFirstName($juser->FirstName);
+            $user->setLastName($juser->LastName);
+            $user->setUserName($juser->UserName);
+            $user->setEmail($juser->Email);
+            $user->setPhone($juser->Phone);
+            $user->setGender($juser->Gender);
+            $user->setAge($juser->Age);
 
+            $data["u"] = $user;
+            $data["title"] = "";
+            //if the action is set to edit then give them the update form
+            if(isset($_GET["action"]) && $_GET["action"] == "edit"){
+                $this->load->helper('form');
+                $this->load->library('form_validation');
 
+                $this->form_validation->set_rules('firstname', 'First Name', 'required');
+                $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
+                
+                $this->form_validation->set_rules('email', 'Email', 'required');
+                $this->form_validation->set_rules('phone', 'Phone', 'required');
+                $this->form_validation->set_rules('gender', 'Gender', 'required');
+                $this->form_validation->set_rules('age', 'Age', 'required');
+               
+        
+                 
+                if ($this->form_validation->run() === FALSE)
+                {
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/updateForm');
+                    $this->load->view('templates/footer');
+        
+                }
+                else{
+
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/successfulUpdate');
+                    $this->load->view('templates/footer');
+                }
+            }else if(isset($_GET["action"]) && $_GET["action"] == "delete"){
+                //send a delete request to the api
+                //ask if you're really sure you want to delete
+                $this->load->helper(array('form', 'url'));
+                $this->load->view('templates/header', $data);
+                $this->load->view('patron/confirmDelete');
+                $this->load->view('templates/footer');
+
+            } else{
+                //load the info
+            $this->load->view('templates/header', $data);
+                    $this->load->view('patron/userInfo', $data);
+                    $this->load->view('templates/footer', $data);
+            
+            }
         }
+    }//end profile
 
+    public function delete(){
+        $this->load->helper(array('form', 'url'));
+        if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+            $data['title'] = ""; 
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/loginform', $data);
+            $this->load->view('templates/footer', $data);
+        } else{
+            $data['title'] = ""; 
+
+            $deleteData = array("username" => $_SESSION["loggedin"]);
+            echo RestClient::call("DELETE",$deleteData,"profile");
+            session_destroy();
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/deleteSuccess', $data);
+            $this->load->view('patron/loginform', $data);
+            $this->load->view('templates/footer', $data);
+        }
     }
 
     public function medicine(){
@@ -168,42 +302,44 @@ class Patron extends CI_Controller {
                 if(LoginManager::verifyLogin() === false || empty($_SESSION)){
                     //if no one is logged in then send them back to the login page
                     //or whatever (maybe browse)
-                    $this->load->helper('form');
-                    $this->load->library('form_validation');
+                    // $this->load->helper('form');
+                    // $this->load->library('form_validation');
         
-                    $data['title'] = "Login"; 
-                            $this->load->view('templates/header', $data);
-                            $this->load->view('patron/loginform', $data);
-                            $this->load->view('templates/footer', $data);
+                    // $data['title'] = "Login"; 
+                    //         $this->load->view('templates/header', $data);
+                    //         $this->load->view('patron/loginform', $data);
+                    //         $this->load->view('templates/footer', $data);
+
+                    redirect('JJG_Pharma/index.php/login');
                 } else {
+                    //For testing
+                    // $_SESSION['loggedin'] = "cprydden0";
+                    //Create new transaction
 
-                //For testing
-                // $_SESSION['loggedin'] = "cprydden0";
-                
-                //Create new transaction
-                $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
-                // var_dump($user);
+                    $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
+                    // var_dump($user);
 
-                $client = RestClient::call("GET", array("id"=>$user->UserID),"client");
-                // var_dump($client);
+                    $client = RestClient::call("GET", array("id"=>$user->UserID),"client");
+                    // var_dump($client);
 
-                $transactionData = array(
-                    "clientID" => $client->ClientID,
-                    "medicineID" => $_POST['medicineid'],
-                    "transactionDate" => date("Y-m-d")
-                );
-                try {
-                    $return = RestClient::call("POST", $transactionData, "transaction");
-                    var_dump($return);
-                    if($return == null) {
-                        throw new Exception("Transaction failed!");
-                    } else {
-                        // echo "Transaction successful!";
-                        $data['transaction'] = "Transaction Successful!";
+                    $transactionData = array(
+                        "clientID" => $client->ClientID,
+                        "medicineID" => $_POST['medicineid'],
+                        "transactionDate" => date("Y-m-d")
+                    );
+                    try {
+                        $return = RestClient::call("POST", $transactionData, "transaction");
+                        var_dump($return);
+                        if($return == null) {
+                            throw new Exception("Transaction failed!");
+                        } else {
+                            // echo "Transaction successful!";
+                            $data['transaction'] = "Transaction Successful!";
+                        }
+                    } catch (Exception $e) {
+                        // echo $e->getMessage();
+                        $data['transaction'] = "Transaction Failed!";
                     }
-                } catch (Exception $e) {
-                    // echo $e->getMessage();
-                    $data['transaction'] = "Transaction Failed!";
                 }
             }
         }
@@ -228,8 +364,44 @@ class Patron extends CI_Controller {
         $this->load->view('templates/header', $data);
         $this->load->view('pages/medicine', $data);
         $this->load->view('templates/footer', $data);
-        
+    }
 
+    public function transaction() {
+        if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+            //if no one is logged in then send them back to the login page
+
+            redirect('JJG_Pharma/index.php/login');
+        } else {
+            $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
+            // var_dump($user);
+    
+            $client = RestClient::call("GET", array("id"=>$user->UserID),"client");
+            // var_dump($client);
+    
+            $stdTrans = RestClient::call("GET", array("id"=>$client->ClientID), "transaction");
+            // var_dump($stdTrans);
+    
+            $transactionData = array();
+    
+            // $med = RestClient::call("GET", array("id"=>1),"medicine");
+            // var_dump($med);
+            foreach($stdTrans as $transaction) {
+                $transactionLine = array();
+                $transactionLine["transaction"] = $transaction;
+                $transactionLine["medicine"] = RestClient::call("GET", array("id"=>$transaction->MedicineID),"medicine");
+                $transactionData[] = $transactionLine;
+            }
+    
+            $data['title'] = "Purchases";
+            $data["transactions"] = $transactionData;
+    
+            //load helpers
+            $this->load->helper(array('html', 'url'));
+    
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/transaction', $data);
+            $this->load->view('templates/footer', $data);
+        }
     }
     
 }

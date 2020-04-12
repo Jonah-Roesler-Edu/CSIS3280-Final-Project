@@ -132,23 +132,22 @@ static function updateUser(User $User): int   {
         $sql = "UPDATE User
                 SET FirstName = :first_name,
                 LastName = :last_name,
-                UserName = :username,
                 Email = :email,
                 Phone = :phone,
                 Gender = :gender,
                 Age = :age
-                WHERE UserID = :id;";
+                WHERE UserName = :username;";
         //Query...
         self::$_db->query($sql);
 
         //Bind
         self::$_db->bind(":first_name", $User->getFirstName());
         self::$_db->bind(":last_name", $User->getLastName());
-        self::$_db->bind(":username", $User->getUserName());
         self::$_db->bind(":email", $User->getEmail());
         self::$_db->bind(":phone", $User->getPhone());
         self::$_db->bind(":gender", $User->getGender());
         self::$_db->bind(":age", $User->getAge());
+        self::$_db->bind(":username", $User->getUserName());
         
         //Execute the query
         self::$_db->execute();
@@ -172,18 +171,17 @@ static function updateUser(User $User): int   {
     }
 
 //DELETE
-static function deleteUser(int $id): int {
+static function deleteUser($username): int {
 
     try {
         $sql = "DELETE FROM User
-            WHERE UserID=:id;";
+            WHERE UserName=:username;";
     self::$_db->query($sql);
     //bind
-    self::$_db->bind(":id",$id);
+    self::$_db->bind(":username",$username);
     //Execute the query
     self::$_db->execute();
     //Get the row
-    return self::$_db->row();
     }catch(PDOException $ex){
         echo $ex->rowCount();
     }

@@ -13,9 +13,20 @@
             </tr>
             <tr>
                 <td>
-                    <form action="lab09-jla-22-logout.php" method="POST">
-                        <input type="hidden" name="logout">
+                    <form action="logout" method="POST">
                         <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="" method="GET">
+                        <input type="hidden" name="action" value="edit">
+                        <button type="submit" class="btn btn-primary">Update Info</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="" method="GET">
+                        <input type="hidden" name="action" value ="delete">
+                        <button type="submit" class="btn btn-primary">Delete Account</button>
                     </form>
                 </td>
             </tr>

@@ -50,12 +50,16 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     if (isset($requestData->id))    {
 
         //Return the customer object
-        $st = TransactionDAO::getTransaction($requestData->id);
+        $transactions = TransactionDAO::getTransactionsByClient($requestData->id);
+
+        foreach ($transactions as $transaction)    {
+            $serializedTransaction[] = $transaction->jsonSerialize();
+        }
 
         //Set the header
         header('Content-Type: application/json');
         //Barf out the JSON version
-        echo json_encode($st->jsonSerialize());
+        echo json_encode($serializedTransaction);
 
     } else {
 

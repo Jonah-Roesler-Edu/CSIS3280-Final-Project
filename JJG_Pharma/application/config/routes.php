@@ -51,13 +51,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $route['default_controller'] = 'Welcome';
 $route['medicine'] = "patron/medicine";
+$route['transaction'] = "patron/transaction";
+$route["logout"] = "patron/logout";
+// $route['medicine'] = "Mycontroller/test";
 $route['profile'] = 'patron/profile';
 $route['login'] = 'patron/login';
 $route['register'] = 'patron/register';
 $route['patron'] = "patron";
 $route['test'] = 'MyController/test';
 $route['(:any)'] = 'MyController/view/$1';
-$route['default_controller'] = 'MyController/test';
+$route['default_controller'] = 'patron/login';
+// $route['default_controller'] = 'MyController/test';
 // $route['default_controller'] = "index.php";
 
 // $route['404_override'] = '';
