@@ -88,40 +88,69 @@ class Patron extends CI_Controller {
             $this->load->view('templates/footer', $data);
         } else{
             //if the user isn't logged in
-             //check post for the login info and validate
-             if(isset($_POST) && !empty($_POST)){
-                // UserDAO::initialize();
+            //validate the form
+            $this->load->helper('form');
+            $this->load->library('form_validation');
+
+            // $this->form_validation->set_rules('userLogin', 'User name', 'callback_username_check_login');
+            $this->form_validation->set_rules('userLogin', 'username', 'required');
+            $this->form_validation->set_rules('passLogin', 'password', 'required');
+
+            if ($this->form_validation->run() === FALSE){
+                //if the form isn't filled out or didn't validate
+                //sshow the form
+                $data['title'] = "Login"; 
+                $this->load->view('templates/header', $data);
+                $this->load->view('patron/loginform', $data);
+                $this->load->view('templates/footer', $data);
             
-                $user = RestClient::call("GET",$_POST,"register");
-                // var_dump($user);
-                if($user !== false && $user != null){
-                    $data['title'] = "Login";
-                    $_SESSION['loggedin'] = $user->UserName;
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('patron/loginSuccess', $data);
-                    $this->load->view('templates/footer', $data);
-                } 
-
             } else{
-                //if there is no post data load the form
-                $this->load->helper('form');
-                $this->load->library('form_validation');
-
-                $this->form_validation->set_rules('userLogin', 'username', 'required');
-                $this->form_validation->set_rules('passLogin', 'password', 'required');
-
-                if ($this->form_validation->run() === FALSE){
-                    //if the form isn't filled out or didn't validate
-                    //sshow the form
-                    $data['title'] = "Login"; 
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('patron/loginform', $data);
-                    $this->load->view('templates/footer', $data);
+                    //check post for the login info and validate
+                if(isset($_POST) && !empty($_POST)){
+                    // UserDAO::initialize();
+                
+                    $user = RestClient::call("GET",$_POST,"register");
+                    var_dump($user);
+                    if(!isset($_SESSION)){
+                        session_start();
+                    }
+                    $data['title'] = "";
+                    if($user !== false && $user != null){
+                        $_SESSION['loggedin'] = $user->UserName;
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('patron/loginSuccess', $data);
+                        $this->load->view('templates/footer', $data);
+                    } else{
+                        session_destroy();
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('patron/loginFailed', $data);
+                        $this->load->view('patron/loginForm', $data);
+                        $this->load->view('templates/footer', $data);
+                    }
                 }
-
             }
         }
     }//end login
+
+    public function username_check_login($str)
+    {
+        //send a call to the 'API to check if the username is ok
+        //first assemble the data to send
+        $toCheck = array("tocheck" => $str);
+
+         $checked = RestClient::call("GET",$toCheck,"register");
+
+            if ($checked->ok===false)
+            {
+                    $this->form_validation->set_message('username_check_login', "The username doesn't exist");
+                    return FALSE;
+            }
+            else
+            {
+                    return TRUE;
+            }
+    }
+
 
     public function logout(){
         
@@ -240,13 +269,13 @@ class Patron extends CI_Controller {
     }//end profile
 
     public function delete(){
+        $this->load->helper(array('form', 'url'));
         if(LoginManager::verifyLogin() === false || empty($_SESSION)){
             $data['title'] = ""; 
             $this->load->view('templates/header', $data);
             $this->load->view('patron/loginform', $data);
             $this->load->view('templates/footer', $data);
         } else{
-            $this->load->helper(array('form', 'url'));
             $data['title'] = ""; 
 
             $deleteData = array("username" => $_SESSION["loggedin"]);

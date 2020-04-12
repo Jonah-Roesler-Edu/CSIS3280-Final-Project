@@ -4,6 +4,6 @@
 //for some reason needed a more complete path than tutorial...
 ?>
 
-<input type="submit" name="register" value="Login">
+<input type="submit" name="register" value="Confirm Delete">
     
   </form>
