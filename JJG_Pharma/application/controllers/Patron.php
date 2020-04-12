@@ -6,6 +6,7 @@
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
+require_once(APPPATH . "/entities/User.php");
 
 
 class Patron extends CI_Controller {
@@ -92,7 +93,7 @@ class Patron extends CI_Controller {
                 // UserDAO::initialize();
             
                 $user = RestClient::call("GET",$_POST,"register");
-                var_dump($user);
+                // var_dump($user);
                 if($user !== false && $user != null){
                     $data['title'] = "Login";
                     $_SESSION['loggedin'] = $user->UserName;
@@ -144,11 +145,92 @@ class Patron extends CI_Controller {
                     $this->load->view('templates/footer', $data);
 
         } else{
-            //if logged in then show the user their info with an option to update it
-            ?> user info will be here<?php
-            //first get the user info from the database
 
+            //if there is post data then it is time to update
+            if(isset($_POST) && !empty($_POST)){
+                var_dump($_POST);
+                // $user = new User();
+                
+                // $user->setFirstName($_POST["firstname"]);
+                // $user->setLastName($_POST["lastname"]);
+                // $user->setEmail($_POST["email"]);
+                // $user->setPhone($_POST["phone"]);
+                // $user->setGender($_POST["gender"]);
+                // $user->setAge($_POST["age"]);
+                $postData = array(
+                    "UserName" => $_SESSION["loggedin"],
+                    "FirstName" => $_POST["firstname"],
+                    "LastName" => $_POST["lastname"],
+                    "Email" => $_POST["email"],
+                    "Phone" => $_POST["phone"],
+                    "Gender" => $_POST["gender"],
+                    "Age" => $_POST["age"]
+                    
+                );
+                //Call the RestClient with PUT
+                $changedRows = RestClient::call("PUT",$postData,"profile");
+
+               
+            }
+        
+
+            //if logged in then show the user their info with an option to update it
+            
+            //first get the user info from the database
+            $requestData = array("id" => $_SESSION["loggedin"]);
+            $juser = RestClient::call("GET",$requestData,"profile");
             //next print it to the table
+            // var_dump($juser);
+            $user = new User();
+            $user->setUserID($juser->UserID);
+            $user->setFirstName($juser->FirstName);
+            $user->setLastName($juser->LastName);
+            $user->setUserName($juser->UserName);
+            $user->setEmail($juser->Email);
+            $user->setPhone($juser->Phone);
+            $user->setGender($juser->Gender);
+            $user->setAge($juser->Age);
+
+            $data["u"] = $user;
+            $data["title"] = "";
+            //if the action is set to edit then give them the update form
+            if(isset($_GET["action"]) && $_GET["action"] == "edit"){
+                $this->load->helper('form');
+                $this->load->library('form_validation');
+
+                $this->form_validation->set_rules('firstname', 'First Name', 'required');
+                $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
+                
+                $this->form_validation->set_rules('email', 'Email', 'required');
+                $this->form_validation->set_rules('phone', 'Phone', 'required');
+                $this->form_validation->set_rules('gender', 'Gender', 'required');
+                $this->form_validation->set_rules('age', 'Age', 'required');
+               
+        
+                 
+                if ($this->form_validation->run() === FALSE)
+                {
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/updateForm');
+                    $this->load->view('templates/footer');
+        
+                }
+                else{
+
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('patron/successfulUpdate');
+                    $this->load->view('templates/footer');
+                }
+            }else if(isset($_GET["action"]) && $_GET["action"] == "delete"){
+                //send a delete request to the api
+            } else{
+                //load the info
+            $this->load->view('templates/header', $data);
+                    $this->load->view('patron/userInfo', $data);
+                    $this->load->view('templates/footer', $data);
+            
+            }
+
 
 
         }

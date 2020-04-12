@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('JJG_Pharma/index.php/patron/register'); 
+<?php echo form_open('JJG_Pharma/index.php/patron/profile?action=edit'); 
 //for some reason needed a more complete path than tutorial...
 ?>
 
@@ -16,10 +16,7 @@
         <td>LastName</td>
         <td><input type="text" name="lastname" class="userInput" value="<?php echo set_value('lastname'); ?>"></td>    
       </tr>
-      <tr>
-        <td>UserName</td>
-        <td><input type="text" name="username" class="userInput" value="<?php echo set_value('username'); ?>"></td>
-      </tr>
+      
       <tr>
         <td>Email</td>
         <td><input type="text" name="email" class="userInput" value="<?php echo set_value('email'); ?>"></td>
@@ -37,16 +34,10 @@
         <td><input type="text" name="age" class="userInput" value="<?php echo set_value('age'); ?>"></td>  
       </tr>
       <tr>
-        <td>Password</td>
-        <td><input type="text" name="password" class="userInput"></td>
-      </tr>
-      <tr>
-        <td>Confirm Password</td>
-        <td><input type="text" name="password2" class="userInput"></td>
-      </tr>
+       
       <tr>
         <td></td>
-        <td><input type="submit" name="register" value="Register"></td>
+        <td><input type="submit" name="update" value="Update Info"></td>
       </tr>
       </table>
     </form>
