@@ -31,17 +31,18 @@ static function initialize()    {
 static function createTransaction(Transaction $newTrans): int   {
 
     //Generate the INSERT STATEMENT for the user;
-   $sql = "INSERT INTO Transaction (ClientID, MedicineID, PrescriptionID, Price, TransDate)
-            VALUES (:clientid, :medicineid, :prescriptionid, :price, :transdate);";
-
+//    $sql = "INSERT INTO Transaction (ClientID, MedicineID, PrescriptionID, Price, TransDate)
+//             VALUES (:clientid, :medicineid, :prescriptionid, :price, :transdate);";
+   $sql = "INSERT INTO Transaction (ClientID, MedicineID, TransDate)
+                    VALUES (:clientid, :medicineid, :transdate);";
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
-   self::$_db->bind("clientid", $newTrans->getClientID());
+   self::$_db->bind(":clientid", $newTrans->getClientID());
    self::$_db->bind(":medicineid", $newTrans->getMedicineID());
-   self::$_db->bind(":prescriptionid", $newTrans->getPrescriptionID());
-   self::$_db->bind(":price", $newTrans->getPrice());
+//    self::$_db->bind(":prescriptionid", $newTrans->getPrescriptionID());
+//    self::$_db->bind(":price", $newTrans->getPrice());
    self::$_db->bind(":transdate", $newTrans->getTransDate());
 
     //Execute the query
@@ -69,6 +70,20 @@ static function getTransaction($id){
 
     //Return the User!
     return self::$_db->singleResult();
+}
+
+//READ a list of Users
+static function getTransactionsByClient($clientID){
+
+    //Prepare the query
+    $sql = "SELECT * FROM Transaction WHERE ClientID=:clientid;";
+    self::$_db->query($sql);
+
+    self::$_db->bind(":clientid", $clientID);
+    //Execute the query
+    self::$_db->execute();
+    //Get the row
+    return self::$_db->resultSet();
 }
 
 //READ a list of Users

@@ -7,7 +7,7 @@ require_once('config.php');
 require_once('entities/Transaction.php');
 
 //Require Utillity Classes
-require_once('Utilities/PDOAgent.class.php');
+require_once('PDOAgent.class.php');
 require_once('Utilities/TransactionDAO.class.php');
 
 /*
@@ -32,9 +32,9 @@ switch ($_SERVER["REQUEST_METHOD"])   {
      
     // new Transaction
     $nt = new Transaction();
-    $nt->setClientID($requestData->ClientID);
-    $nt->setPrescriptionID($requestData->PrescriptionID);
-    $nt->setTransDate($requestData->TransDate);
+    $nt->setClientID($requestData->clientID);
+    $nt->setMedicineID($requestData->medicineID);
+    $nt->setTransDate($requestData->transactionDate);
 
     $result = TransactionDAO::createTransaction($nt);
 

@@ -7,6 +7,8 @@ define('API_REGISTER',  'http://localhost/JJG_Pharma/RestComponents/RegisterAPI.
 define('API_PROFILE',  'http://localhost/JJG_Pharma/RestComponents/ProfileAPI.php');
 define('API_MEDICINE',  'http://localhost/JJG_Pharma/RestComponents/MedicineAPI.php');
 define('API_TRANSACTION',  'http://localhost/JJG_Pharma/RestComponents/TransactionAPI.php');
+define('API_USER',  'http://localhost/JJG_Pharma/RestComponents/UserAPI.php');
+define('API_CLIENT',  'http://localhost/JJG_Pharma/RestComponents/ClientAPI.php');
 
 /*
 |--------------------------------------------------------------------------

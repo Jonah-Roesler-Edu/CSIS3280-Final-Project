@@ -27,10 +27,11 @@
     class Transaction{
         private $TransactionID;
         private $ClientID;
+        // private $UserID;
         private $MedicineID;
-        private $PrescriptionID;
+        // private $PrescriptionID;
         // private $MedicineName;
-        private $Price;
+        // private $Price;
         private $TransDate;
 
 
@@ -46,10 +47,10 @@
         }
         // public function getClientName() {
         //     return $this->ClientName;
+        // // }
+        // public function getPrescriptionID() {
+        //     return $this->PrescriptionID;
         // }
-        public function getPrescriptionID() {
-            return $this->PrescriptionID;
-        }
         // public function getMedicineName() {
         //     return $this->MedicineName;
         // }

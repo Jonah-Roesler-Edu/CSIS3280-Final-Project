@@ -35,7 +35,7 @@ class MyController extends CI_Controller {
 
     }
 
-    public function test($page = 'medicine')
+    public function test($page = 'search')
     {
         if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
         {

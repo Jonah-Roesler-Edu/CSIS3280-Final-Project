@@ -1,25 +1,27 @@
 <div class="header">
+  <div class="container">
   <h1>Login</h1>
 
-  <form method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
-    <table>
-      <tr>
-        <td>UserName</td>
-        <td><input type="text" name="userLogin" class="userInput"></td>
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
+      <table>
+        <tr>
+          <td>UserName</td>
+          <td><input type="text" name="userLogin" class="userInput"></td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td><input type="text" name="passLogin" class="userInput"></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td><input type="submit" name="register" value="Login"></td>
       </tr>
-      <tr>
-        <td>Password</td>
-        <td><input type="text" name="passLogin" class="userInput"></td>
-      </tr>
-      <tr>
-      <td></td>
-      <td><input type="submit" name="register" value="Login"></td>
-    </tr>
-    </table>
-  </form>
-
+      </table>
+    </form>
+  </div> 
 </div> 
 <div class="header">
+  <div class="container">
     <h1>Register</h1> 
      
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
@@ -67,6 +69,6 @@
       </tr>
       </table>
     </form>
-
+  </div> 
 </div> 
   

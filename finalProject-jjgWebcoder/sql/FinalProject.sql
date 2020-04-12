@@ -1,7 +1,9 @@
 DROP DATABASE IF EXISTS pharmadb;
 CREATE DATABASE pharmadb;
 USE pharmadb;
--- select * from Transaction;
+-- select * from User;
+
+
 CREATE TABLE User(
     UserID INT(11) NOT NULL AUTO_INCREMENT,
     FirstName VARCHAR(50),
@@ -46,18 +48,18 @@ CREATE TABLE Medicine(
     PRIMARY KEY(MedicineID)
 );
 
-CREATE TABLE Prescription(
-    PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
-    ClientID INT(11) NOT NULL,
-    DoctorID INT(11),
-    MedicineID INT(11) NOT NULL,
-    Description VARCHAR(500), 
-    -- Something like dosage, etc
-    PRIMARY KEY(PrescriptionID),
-    FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(DoctorID) REFERENCES Doctor(DoctorID) ON DELETE SET NULL,
-    FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- CREATE TABLE Prescription(
+--     PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
+--     ClientID INT(11) NOT NULL,
+--     DoctorID INT(11),
+--     MedicineID INT(11) NOT NULL,
+--     Description VARCHAR(500), 
+--     -- Something like dosage, etc
+--     PRIMARY KEY(PrescriptionID),
+--     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
+--     FOREIGN KEY(DoctorID) REFERENCES Doctor(DoctorID) ON DELETE SET NULL,
+--     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE
+-- );
 
 
 CREATE TABLE Transaction(
@@ -69,10 +71,9 @@ CREATE TABLE Transaction(
     TransDate date,
     PRIMARY KEY(TransactionID),
     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE
+    -- FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 INSERT INTO User VALUES 
 (1,'Colver','Prydden','cprydden0','cprydden0@dedecms.com','585-686-1406','Male',49,'$2y$10$JHV0Y0yfYhTA2rTA//1CweCZWwfkGEHxK/TnT8VIJIwjDTlGkCCDi')
@@ -106,15 +107,20 @@ INSERT INTO Medicine VALUES(2,"Biotin","enhance nail, hair and nerve","Follow yo
 INSERT INTO Medicine VALUES(3,"Paracetamol","The treatment of painfull, headache ","Follow you doctor advices");
 INSERT INTO Medicine VALUES(4,"Phenytoin","slowing down impulses in the brain that cause seizures","Follow you doctor advices");
 
-INSERT INTO Prescription VALUES(1,1,1,1, "100 mg, apply sparingly");
-INSERT INTO Prescription VALUES(2,2,2,2, "200 pills");
-INSERT INTO Prescription VALUES(3,3,2,1, "100 pills");
+-- INSERT INTO Prescription VALUES(1,1,1,1, "100 mg, apply sparingly");
+-- INSERT INTO Prescription VALUES(2,2,2,2, "200 pills");
+-- INSERT INTO Prescription VALUES(3,3,2,1, "100 pills");
 
 
-INSERT INTO Transaction VALUES(1,3,1,2,200, '2020-01-02');
-INSERT INTO Transaction VALUES(2,2,2,2,300, '2020-04-01');
-INSERT INTO Transaction VALUES(3,1,3,3,150, '2020-04-02');
-INSERT INTO Transaction VALUES(4,2,1,1,80, '2020-04-03');
+-- INSERT INTO Transaction VALUES(1,3,1,2,200, '2020-01-02');
+-- INSERT INTO Transaction VALUES(2,2,2,2,300, '2020-04-01');
+-- INSERT INTO Transaction VALUES(3,1,3,3,150, '2020-04-02');
+-- INSERT INTO Transaction VALUES(4,2,1,1,80, '2020-04-03');
+
+INSERT INTO Transaction VALUES(1,3,1, '2020-01-02');
+INSERT INTO Transaction VALUES(2,2,2, '2020-04-01');
+INSERT INTO Transaction VALUES(3,1,3, '2020-04-02');
+INSERT INTO Transaction VALUES(4,2,1, '2020-04-03');
 
 
 
@@ -149,8 +155,6 @@ INSERT INTO Transaction VALUES(4,2,1,1,80, '2020-04-03');
 --     ,"Phenytoin works by slowing down impulses in the brain that cause seizures."
 --     ,"signs of an allergic reaction to phenytoin (hives, difficult breathing, swelling in your face or throat) or a severe skin reaction (fever, sore throat, burning in your eyes, skin pain, red or purple"
 -- );
-
-
 
 
 

@@ -24,15 +24,15 @@ static function initialize()    {
 static function createClient(Client $newClient): int   {
 
     //Generate the INSERT STATEMENT for the user;
-   $sql = "INSERT INTO Client (ClientID, UserID)
-            VALUES (:clientid, :userid);";
+   $sql = "INSERT INTO Client (UserID)
+            VALUES (:userid);";
 
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
    self::$_db->bind(":clientid", $newClient->getClientID());
-   self::$_db->bind(":userid", $newClient->getMedicineID());
+   self::$_db->bind(":userid", $newClient->getUserID());
 
     //Execute the query
     self::$_db->execute();
@@ -47,6 +47,25 @@ static function getClient($id){
 
     $sql = "SELECT * FROM Client
             WHERE ClientID = :id;";
+
+    //prepare the query
+    self::$_db->query($sql);
+
+    //Setup the bind parameters
+    self::$_db->bind(":id", $id);
+
+    //Execute the query
+    self::$_db->execute();
+
+    //Return the Client!
+    return self::$_db->singleResult();
+}
+
+//READ a single Client
+static function getClientByUser($id){
+
+    $sql = "SELECT * FROM Client
+            WHERE UserID = :id;";
 
     //prepare the query
     self::$_db->query($sql);

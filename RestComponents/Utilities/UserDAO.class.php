@@ -63,14 +63,32 @@ static function createUser(User $newUser): int   {
 //READ a single User
 static function getUser($username){
 
-    $sql = "SELECT * FROM User
-            WHERE UserName = :username;";
+    $sql = "SELECT * FROM User WHERE UserName = :username;";
 
     //prepare the query
     self::$_db->query($sql);
 
     //Setup the bind parameters
     self::$_db->bind(":username", $username);
+
+    //Execute the query
+    self::$_db->execute();
+
+    //Return the User!
+    return self::$_db->singleResult();
+
+}
+
+static function getUserByID($userID){
+
+    $sql = "SELECT * FROM User
+            WHERE UserID = :userid;";
+
+    //prepare the query
+    self::$_db->query($sql);
+
+    //Setup the bind parameters
+    self::$_db->bind(":username", $userID);
 
     //Execute the query
     self::$_db->execute();

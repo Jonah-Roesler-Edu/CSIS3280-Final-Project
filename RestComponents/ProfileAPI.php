@@ -8,7 +8,8 @@ require_once('entities/User.php');
 require_once('entities/Client_Doctor.php');
 
 //Require Utillity Classes
-require_once('Utilities/PDOAgent.class.php');
+// require_once('Utilities/PDOAgent.class.php');
+require_once('PDOAgent.class.php');
 require_once('Utilities/UserDAO.class.php');
 require_once('Utilities/Client_DoctorDAO.class.php');
 
@@ -48,7 +49,7 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     $nu->setAge($requestData->Age);
     $nu->setPass($requestData->Pass);
 
-    $result = UserDAO::createMedicine($nu);
+    $result = UserDAO::createUser($nu);
 
     $ncd = new Client_Doctor();
     $ncd->setClientID($requestData->ClientID);

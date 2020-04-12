@@ -33,6 +33,12 @@ class RestClient{
             case "transaction":
                 $result = file_get_contents(API_TRANSACTION, false, $context);
             break;
+            case "user":
+                $result = file_get_contents(API_USER, false, $context);
+            break;
+            case "client":
+                $result = file_get_contents(API_CLIENT, false, $context);
+            break;
             case "test":
                 $result = file_get_contents(API_URL, false, $context);
             break;

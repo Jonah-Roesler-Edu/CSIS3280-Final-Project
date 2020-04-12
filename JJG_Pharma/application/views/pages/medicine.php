@@ -4,6 +4,10 @@
         <h3>Medicine List</h3>
     </div>
     <div class = "row">
+        <p><?php echo $transaction ?></p>
+        
+    </div>
+    <div class = "row">
         <table>
             <thead>
                 <th>Medicine</th>
@@ -26,7 +30,7 @@
                         echo "</td>";
                         ?>
                         <td>
-                        <form method = "POST" enctype="multipart/form-data">
+                        <form method = "POST" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
                             <input type="hidden" name="medicineid" value="<?php echo $medicine->getMedicineID() ?>">
                             <input type="submit" name="Purchase" value="Purchase">
                         </form>

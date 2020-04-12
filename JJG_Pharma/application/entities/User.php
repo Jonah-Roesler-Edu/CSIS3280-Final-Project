@@ -86,10 +86,8 @@ class User{
 
     // verify password
     public function verifyPassword(string $passwordToVerify) {
-
-        $storedHash = password_hash($passwordToVerify, PASSWORD_DEFAULT);
         
-        return password_verify($passwordToVerify, $storedHash);
+        return password_verify($passwordToVerify, $this->getPass());
     }
 
     public function jsonSerialize() {

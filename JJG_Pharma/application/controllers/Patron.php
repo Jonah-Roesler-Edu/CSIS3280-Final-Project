@@ -6,9 +6,17 @@
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
-
+require_once("entities/Medicine.php");
 
 class Patron extends CI_Controller {
+
+    public function __construct()
+    {
+            parent::__construct();
+            
+            // $this->load->helper('url_helper');
+            $this->load->helper(array('html', 'url'));
+    }
 
     public function index() {
         echo "TEST INDEX";
@@ -20,14 +28,14 @@ class Patron extends CI_Controller {
 
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
-        $this->form_validation->set_rules('username', 'User name', 'required');
+        $this->form_validation->set_rules('username', 'User name', 'callback_username_check');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('phone', 'Phone', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('age', 'Age', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
         $this->form_validation->set_rules('password2', 'Password confirmation', 'required|matches[password]');
-
+        
 
         $data['title'] = "Register"; 
         if ($this->form_validation->run() === FALSE)
@@ -46,6 +54,24 @@ class Patron extends CI_Controller {
 
     }
 
+    public function username_check($str)
+        {
+            //send a call to the 'API to check if the username is ok
+            //first assemble the data to send
+            $toCheck = array("tocheck" => $str);
+
+             $checked = RestClient::call("GET",$toCheck,"register");
+
+                if ($checked->ok)
+                {
+                        $this->form_validation->set_message('username_check', 'The username is already taken');
+                        return FALSE;
+                }
+                else
+                {
+                        return TRUE;
+                }
+        }
 
 
     public function login($page = "login")
@@ -131,14 +157,10 @@ class Patron extends CI_Controller {
 
     public function medicine(){
 
-        if($_SERVER["REQUEST_METHOD"] == "GET") {
-            $load = array();
-            RestClient::call("GET", $load, "medicine");
-            
-        }
+        $data['transaction'] = "";
 
+        //if PURCHASE was pressed
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            //if PURCHASE was pressed
             //verify login
             if(isset($_POST['medicineid']) && !empty($_POST['medicineid'])) {
 
@@ -154,15 +176,60 @@ class Patron extends CI_Controller {
                             $this->load->view('patron/loginform', $data);
                             $this->load->view('templates/footer', $data);
                 } else {
-                //LOGIN = TRUE >> PROCESS TRANSACT
-                    $transactionData = array(
-                        "userid" => $_SESSION['loggedin'],
-                        "medicineid" => $_GET['medicineid'],
-                        "date" => getdate("Y-m-d")
-                    );
-                    RestClient::call("POST", $transactionData, "transaction");
+
+                //For testing
+                // $_SESSION['loggedin'] = "cprydden0";
+                
+                //Create new transaction
+                $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
+                // var_dump($user);
+
+                $client = RestClient::call("GET", array("id"=>$user->UserID),"client");
+                // var_dump($client);
+
+                $transactionData = array(
+                    "clientID" => $client->ClientID,
+                    "medicineID" => $_POST['medicineid'],
+                    "transactionDate" => date("Y-m-d")
+                );
+                try {
+                    $return = RestClient::call("POST", $transactionData, "transaction");
+                    var_dump($return);
+                    if($return == null) {
+                        throw new Exception("Transaction failed!");
+                    } else {
+                        // echo "Transaction successful!";
+                        $data['transaction'] = "Transaction Successful!";
+                    }
+                } catch (Exception $e) {
+                    // echo $e->getMessage();
+                    $data['transaction'] = "Transaction Failed!";
                 }
             }
         }
+        $stdMed = RestClient::call("GET", array(), "medicine");
+        // var_dump($stdMed);
+        $medicines = array();
+        foreach($stdMed as $medicine) {
+            $newMed = new Medicine();
+            $newMed->setMedicineID($medicine->MedicineID);
+            $newMed->setMedicineName($medicine->MedicineName);
+            $newMed->setDescription($medicine->Description);
+            $newMed->setTreatment($medicine->Treatment);
+            $medicines[] = $newMed;
+        }
+
+        //load helpers
+        $this->load->helper(array('html', 'url'));
+
+        $data['title'] = "Medicine";
+        $data['medicines'] = $medicines;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/medicine', $data);
+        $this->load->view('templates/footer', $data);
+        
+
     }
+    
 }

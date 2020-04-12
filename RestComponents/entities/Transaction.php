@@ -30,7 +30,7 @@
         private $MedicineID;
         // private $PrescriptionID;
         // private $MedicineName;
-        private $Price;
+        // private $Price;
         private $TransDate;
 
 
@@ -67,9 +67,12 @@
         public function setClientID($newClient) {
             $this->ClientID = $newClient;
         }
-        public function setClientName($newName) {
-            $this->ClientName = $newName;
+        public function setMedicineID($newClient) {
+            $this->MedicineID = $newClient;
         }
+        // public function setClientName($newName) {
+        //     $this->ClientName = $newName;
+        // }
         // public function setPrescriptionID($newPrescription) {
         //     $this->PrescriptionID = $newPrescription;
         // }
