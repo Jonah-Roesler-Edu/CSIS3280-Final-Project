@@ -153,7 +153,7 @@ static function updateUser(User $User): int   {
     }
 
 //DELETE
-static function deleteUser(int $username): int {
+static function deleteUser($username): int {
 
     try {
         $sql = "DELETE FROM User
@@ -164,7 +164,6 @@ static function deleteUser(int $username): int {
     //Execute the query
     self::$_db->execute();
     //Get the row
-    return self::$_db->row();
     }catch(PDOException $ex){
         echo $ex->rowCount();
     }

@@ -223,6 +223,12 @@ class Patron extends CI_Controller {
                 }
             }else if(isset($_GET["action"]) && $_GET["action"] == "delete"){
                 //send a delete request to the api
+                //ask if you're really sure you want to delete
+                $this->load->helper(array('form', 'url'));
+                $this->load->view('templates/header', $data);
+                $this->load->view('patron/confirmDelete');
+                $this->load->view('templates/footer');
+
             } else{
                 //load the info
             $this->load->view('templates/header', $data);
@@ -230,10 +236,26 @@ class Patron extends CI_Controller {
                     $this->load->view('templates/footer', $data);
             
             }
-
-
-
         }
+    }//end profile
 
+    public function delete(){
+        if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+            $data['title'] = ""; 
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/loginform', $data);
+            $this->load->view('templates/footer', $data);
+        } else{
+            $this->load->helper(array('form', 'url'));
+            $data['title'] = ""; 
+
+            $deleteData = array("username" => $_SESSION["loggedin"]);
+            echo RestClient::call("DELETE",$deleteData,"profile");
+            session_destroy();
+            $this->load->view('templates/header', $data);
+            $this->load->view('patron/deleteSuccess', $data);
+            $this->load->view('patron/loginform', $data);
+            $this->load->view('templates/footer', $data);
+        }
     }
 }

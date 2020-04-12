@@ -143,14 +143,14 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     case "DELETE":
         //In YARC send the request as key=value
         //Pull the ID, send it to delete via the customer mapper and return the result.
-        $result = UserDAO::deleteUser($requestData->id);
+        $result = UserDAO::deleteUser($requestData->username);
 
-        $result2 = Client_DoctorDAO::deleteClient_Doctor($requestData->id);
+        
         //Set the header
         header('Content-Type: application/json');
         //return the confirmation of deletion
         echo json_encode($result);
-        echo json_encode($result2);
+        
         
     break; 
 
