@@ -113,7 +113,7 @@ class Patron extends CI_Controller {
                     // UserDAO::initialize();
                 
                     $user = RestClient::call("GET",$_POST,"register");
-                    var_dump($user);
+                    // var_dump($user);
                     if(!isset($_SESSION)){
                         session_start();
                     }
@@ -180,7 +180,7 @@ class Patron extends CI_Controller {
 
             //if there is post data then it is time to update
             if(isset($_POST) && !empty($_POST)){
-                var_dump($_POST);
+                // var_dump($_POST);
                 // $user = new User();
                 
                 // $user->setFirstName($_POST["firstname"]);
