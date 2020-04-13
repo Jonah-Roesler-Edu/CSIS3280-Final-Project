@@ -334,7 +334,7 @@ class Patron extends CI_Controller {
                     );
                     try {
                         $return = RestClient::call("POST", $transactionData, "transaction");
-                        var_dump($return);
+                        // var_dump($return);
                         if($return == null) {
                             throw new Exception("Transaction failed!");
                         } else {
@@ -386,27 +386,31 @@ class Patron extends CI_Controller {
     
             $stdTrans = RestClient::call("GET", array("id"=>$client->ClientID), "transaction");
             // var_dump($stdTrans);
+            if($stdTrans != null){
     
-            $transactionData = array();
+                $transactionData = array();
     
-            // $med = RestClient::call("GET", array("id"=>1),"medicine");
-            // var_dump($med);
-            foreach($stdTrans as $transaction) {
-                $transactionLine = array();
-                $transactionLine["transaction"] = $transaction;
-                $transactionLine["medicine"] = RestClient::call("GET", array("id"=>$transaction->MedicineID),"medicine");
-                $transactionData[] = $transactionLine;
+                // $med = RestClient::call("GET", array("id"=>1),"medicine");
+                // var_dump($med);
+                foreach($stdTrans as $transaction) {
+                    $transactionLine = array();
+                    $transactionLine["transaction"] = $transaction;
+                    $transactionLine["medicine"] = RestClient::call("GET", array("id"=>$transaction->MedicineID),"medicine");
+                    $transactionData[] = $transactionLine;
+                }
+                $data["transactions"] = $transactionData;
+            }else {
+                $data["transactions"] = array();
             }
-    
             $data['title'] = "Purchases";
-            $data["transactions"] = $transactionData;
-    
+                
             //load helpers
             $this->load->helper(array('html', 'url'));
     
             $this->load->view('templates/header', $data);
             $this->load->view('pages/transaction', $data);
             $this->load->view('templates/footer', $data);
+
         }
     }
 
@@ -442,14 +446,14 @@ class Patron extends CI_Controller {
                             "ClientID" => $client->ClientID
                         );
                         $result = RestClient::call("POST", $newPres, "prescription");
-                        var_dump($result);
+                        // var_dump($result);
                     break;
                     case "delete":
                         $delPres = array(
                             "PrescriptionID" => $_POST["prescriptionid"],
                         );
                         $result = RestClient::call("DELETE", $delPres, "prescription");
-                        var_dump($result);
+                        // var_dump($result);
                     break;
                     case "edit":
                         $editPres = array(
@@ -459,7 +463,7 @@ class Patron extends CI_Controller {
                             "Description" => $_POST["description"]
                         );
                         $result = RestClient::call("PUT", $editPres, "prescription");
-                        var_dump($result);
+                        // var_dump($result);
                     break;
                 }
                 redirect('JJG_Pharma/index.php/prescription');
@@ -475,7 +479,7 @@ class Patron extends CI_Controller {
             //if edit chosen >> display edit form
             if( isset($_GET["submit"]) && $_GET["submit"] == "edit") {
                 $editPrescription = RestClient::call("GET", array("PrescriptionID" => $_GET["prescriptionid"]), "prescription");
-                var_dump($editPrescription);
+                // var_dump($editPrescription);
                 $data["editprescription"] = $editPrescription;
                 $this->load->view('patron/prescriptionUpdate', $data);   
             }

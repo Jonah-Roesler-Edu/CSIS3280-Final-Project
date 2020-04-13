@@ -13,19 +13,24 @@
             </thead>
             <tbody>
                 <?php
-                foreach($transactions as $transaction) {
-                    echo "<tr>";
-                        echo "<td>";
-                        echo $transaction["transaction"]->TransactionID;
-                        echo "</td>";
-                        echo "<td>";
-                        echo $transaction["medicine"]->MedicineName;
-                        echo "</td>";
-                        echo "<td>";
-                        echo $transaction["transaction"]->TransDate;
-                        echo "</td>";
-                    echo "</tr>";  
+                if(count($transactions) != 0) {
+                    foreach($transactions as $transaction) {
+                        echo "<tr>";
+                            echo "<td>";
+                            echo $transaction["transaction"]->TransactionID;
+                            echo "</td>";
+                            echo "<td>";
+                            echo $transaction["medicine"]->MedicineName;
+                            echo "</td>";
+                            echo "<td>";
+                            echo $transaction["transaction"]->TransDate;
+                            echo "</td>";
+                        echo "</tr>";  
+                    }
+                }  else {
+                    echo "You have no transactions.";
                 }
+
                     ?>
             </tbody>
         </table>
