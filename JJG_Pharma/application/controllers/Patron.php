@@ -85,7 +85,7 @@ class Patron extends CI_Controller {
         if(LoginManager::verifyLogin()){
             //if they're logged in send them somewhere (probably browse)
             //for now just simple page to say they're logged in.
-            $data['title'] = "Login";
+            $data['title'] = "";
             $this->load->view('templates/header', $data);
             $this->load->view('patron/loginSuccess', $data);
             $this->load->view('templates/footer', $data);
@@ -113,7 +113,6 @@ class Patron extends CI_Controller {
                     // UserDAO::initialize();
                 
                     $user = RestClient::call("GET",$_POST,"register");
-                    var_dump($user);
                     if(!isset($_SESSION)){
                         session_start();
                     }
