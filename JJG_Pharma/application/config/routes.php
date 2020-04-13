@@ -57,7 +57,9 @@ $route["logout"] = "patron/logout";
 $route['profile'] = 'patron/profile';
 $route['login'] = 'patron/login';
 $route['register'] = 'patron/register';
+$route['prescription'] = 'patron/prescription';
 $route['patron'] = "patron";
+
 $route['test'] = 'MyController/test';
 $route['(:any)'] = 'MyController/view/$1';
 $route['default_controller'] = 'patron/login';

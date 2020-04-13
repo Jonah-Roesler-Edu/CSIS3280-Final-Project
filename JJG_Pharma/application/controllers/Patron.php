@@ -6,8 +6,10 @@
 //require RESTCLIENT
 require_once(APPPATH . "/classes/RestClient.class.php");
 require_once(APPPATH . "/classes/LoginManager.class.php");
-require_once("entities/Medicine.php");
 require_once(APPPATH . "/entities/User.php");
+
+require_once("entities/Medicine.php");
+require_once("entities/Prescription.php");
 
 
 class Patron extends CI_Controller {
@@ -266,6 +268,7 @@ class Patron extends CI_Controller {
                     $this->load->view('templates/footer', $data);
             
             }
+            
         }
     }//end profile
 
@@ -290,6 +293,8 @@ class Patron extends CI_Controller {
     }
 
     public function medicine(){
+        //For testing
+        // $_SESSION['loggedin'] = "cprydden0";
 
         $data['transaction'] = "";
 
@@ -372,6 +377,7 @@ class Patron extends CI_Controller {
 
             redirect('JJG_Pharma/index.php/login');
         } else {
+
             $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
             // var_dump($user);
     
@@ -400,6 +406,80 @@ class Patron extends CI_Controller {
     
             $this->load->view('templates/header', $data);
             $this->load->view('pages/transaction', $data);
+            $this->load->view('templates/footer', $data);
+        }
+    }
+
+    public function prescription()  {
+        //For testing
+        // $_SESSION['loggedin'] = "cprydden0";
+
+        //IF user not logged in >> return to login
+        if(LoginManager::verifyLogin() === false || empty($_SESSION)){
+            //if no one is logged in then send them back to the login page
+            redirect('JJG_Pharma/index.php/login');
+        }
+        else {
+
+            //retrieve user and user prescriptions
+            $user = RestClient::call("GET", array("id" => $_SESSION['loggedin'] ), "user");
+            // var_dump($user);
+
+            $client = RestClient::call("GET", array("id"=>$user->UserID),"client");
+            // var_dump($client);
+
+            $prescriptions = RestClient::call("GET", array("ClientID"=>$client->ClientID), "prescription");
+            // var_dump($prescriptions);
+
+            //If POST >> Create, Delete Update
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                switch($_POST["submit"]) {
+                    case "create":
+
+                        $newPres = array(
+                            "MedicineName" => $_POST["medicinename"],
+                            "Description" => $_POST["description"],
+                            "ClientID" => $client->ClientID
+                        );
+                        $result = RestClient::call("POST", $newPres, "prescription");
+                        var_dump($result);
+                    break;
+                    case "delete":
+                        $delPres = array(
+                            "PrescriptionID" => $_POST["prescriptionid"],
+                        );
+                        $result = RestClient::call("DELETE", $delPres, "prescription");
+                        var_dump($result);
+                    break;
+                    case "edit":
+                        $editPres = array(
+                            "ClientID" => $client->ClientID,
+                            "PrescriptionID" => $_POST["prescriptionid"],
+                            "MedicineName" => $_POST["medicinename"],
+                            "Description" => $_POST["description"]
+                        );
+                        $result = RestClient::call("PUT", $editPres, "prescription");
+                        var_dump($result);
+                    break;
+                }
+                redirect('JJG_Pharma/index.php/prescription');
+            }
+
+            $data['title'] = "Prescriptions";
+            $data["prescriptions"] = $prescriptions;
+
+            //load helpers
+            $this->load->helper(array('html', 'url'));
+
+            $this->load->view('templates/header', $data);
+            //if edit chosen >> display edit form
+            if( isset($_GET["submit"]) && $_GET["submit"] == "edit") {
+                $editPrescription = RestClient::call("GET", array("PrescriptionID" => $_GET["prescriptionid"]), "prescription");
+                var_dump($editPrescription);
+                $data["editprescription"] = $editPrescription;
+                $this->load->view('patron/prescriptionUpdate', $data);   
+            }
+            $this->load->view('pages/prescription', $data);
             $this->load->view('templates/footer', $data);
         }
     }

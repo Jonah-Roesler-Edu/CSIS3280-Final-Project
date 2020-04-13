@@ -2,7 +2,7 @@
 
 
 
-class Prescription    {
+class PrescriptionDAO   {
 
 private static $_db;
 
@@ -16,14 +16,11 @@ static function initialize()    {
 // CREATE TABLE Prescription(
 //     PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
 //     ClientID INT(11) NOT NULL,
-//     DoctorID INT(11),
-//     MedicineID INT(11) NOT NULL,
+//     MedicineName VARCHAR(50),
 //     Description VARCHAR(500), 
 //     -- Something like dosage, etc
 //     PRIMARY KEY(PrescriptionID),
-//     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
-//     FOREIGN KEY(DoctorID) REFERENCES Doctor(DoctorID) ON DELETE SET NULL,
-//     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE
+//     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE
 // );
 
 
@@ -32,8 +29,8 @@ static function createPrescription(Prescription $newPrescription): int   {
 
     //Generate the INSERT STATEMENT for the user;
     //Id missing because AUTO INCREMENT
-   $sql = "INSERT INTO Prescription (ClientID, DoctorID, MedicineID, Description)
-            VALUES (:clientid, :doctorid, :medicineid, :description);";
+   $sql = "INSERT INTO Prescription (ClientID, MedicineName, Description)
+            VALUES (:clientid, :medicinename, :description);";
 
     //prepare the query
     self::$_db->query($sql);
@@ -41,8 +38,7 @@ static function createPrescription(Prescription $newPrescription): int   {
     //Setup the bind parameters
 //    self::$_db->bind("prescriptionid", $newPrescription->getPrescriptionID());
    self::$_db->bind(":clientid", $newPrescription->getClientID());
-   self::$_db->bind(":doctorid", $newPrescription->getDoctorID());
-   self::$_db->bind(":medicineid", $newPrescription->getMedicineID());
+   self::$_db->bind(":medicinename", $newPrescription->getMedicineName());
    self::$_db->bind(":description", $newPrescription->getDescription());
 
     //Execute the query
@@ -73,11 +69,13 @@ static function getPrescription($id){
 }
 
 //READ a list of Users
-static function getPrescriptions(){
+static function getPrescriptionsByClient($id){
 
     //Prepare the query
-    $sql = "SELECT * FROM Prescription;";
+    $sql = "SELECT * FROM Prescription WHERE ClientID = :id;";
     self::$_db->query($sql);
+
+    self::$_db->bind(":id", $id);
     //Execute the query
     self::$_db->execute();
     //Get the row
@@ -94,17 +92,16 @@ static function updatePrescription(Prescription $Prescription): int   {
         $sql = "UPDATE Prescription
                 SET
                 ClientID = :clientid,
-                DoctorID = :doctorid,
-                MedicineID = :medicineid,
+                MedicineName = :medicinename,
                 Description = :description
                 WHERE PrescriptionID = :prescriptionid;";
         //Query...
         self::$_db->query($sql);
 
         //Bind
+        self::$_db->bind(":prescriptionid", $Prescription->getPrescriptionID());
         self::$_db->bind(":clientid", $Prescription->getClientID());
-        self::$_db->bind(":doctorid", $Prescription->getDoctorID());
-        self::$_db->bind(":medicineid", $Prescription->getMedicineID());
+        self::$_db->bind(":medicinename", $Prescription->getMedicineName());
         self::$_db->bind(":description", $Prescription->getDescription());
 
         //Execute the query
@@ -139,24 +136,13 @@ static function deletePrescription(int $id): int {
     //Execute the query
     self::$_db->execute();
     //Get the row
-    return self::$_db->row();
+    return self::$_db->rowCount();
     }catch(PDOException $ex){
         echo $ex->rowCount();
     }
 
     //Return the amount of affected rows.
     return self::$_db->rowCount();
-}
-
-static function getClientPrescriptions($id) {
-    $sql = "SELECT * FROM Prescription WHERE ClientID = :clientid";  
-
-    self::$_db->query();
-    self::$_db->bind(":clientid", $id);
-
-    self::$_db->execute();
-
-    return self::$_db->resultSet();
 }
 
 }

@@ -39,6 +39,9 @@ class RestClient{
             case "client":
                 $result = file_get_contents(API_CLIENT, false, $context);
             break;
+            case "prescription":
+                $result = file_get_contents(API_PRESCRIPTION, false, $context);
+            break;
             case "test":
                 $result = file_get_contents(API_URL, false, $context);
             break;

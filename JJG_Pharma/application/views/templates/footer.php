@@ -1,3 +1,3 @@
-  <h3><?php echo "Goodbye!" ?></h3>
+  <h3></h3>
   </body>
 </html>

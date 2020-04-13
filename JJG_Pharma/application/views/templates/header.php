@@ -24,6 +24,7 @@
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/profile", "Profile") ?></h3></div>
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/medicine", "Medicine") ?></h3></div>
         <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/transaction", "Purchases") ?></h3></div>
+        <div class = "column"><h3><?php echo anchor("JJG_Pharma/index.php/prescription", "Prescription") ?></h3></div>
     </div>
 </div>
 <div class="container" style="color:#2a292b">

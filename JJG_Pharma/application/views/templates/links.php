@@ -5,3 +5,4 @@
 <a href="<?php echo base_url().'index.php/search'; ?>">Search</a>
 <a href="<?php echo base_url().'index.php/login'; ?>">Login</a>
 <a href="<?php echo base_url().'index.php/profile'; ?>">Profile</a>
+

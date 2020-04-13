@@ -48,18 +48,15 @@ CREATE TABLE Medicine(
     PRIMARY KEY(MedicineID)
 );
 
--- CREATE TABLE Prescription(
---     PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
---     ClientID INT(11) NOT NULL,
---     DoctorID INT(11),
---     MedicineID INT(11) NOT NULL,
---     Description VARCHAR(500), 
---     -- Something like dosage, etc
---     PRIMARY KEY(PrescriptionID),
---     FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE,
---     FOREIGN KEY(DoctorID) REFERENCES Doctor(DoctorID) ON DELETE SET NULL,
---     FOREIGN KEY(MedicineID) REFERENCES Medicine(MedicineID) ON DELETE CASCADE ON UPDATE CASCADE
--- );
+CREATE TABLE Prescription(
+    PrescriptionID INT(11) NOT NULL AUTO_INCREMENT,
+    ClientID INT(11) NOT NULL,
+    MedicineName VARCHAR(50),
+    Description VARCHAR(500), 
+    -- Something like dosage, etc
+    PRIMARY KEY(PrescriptionID),
+    FOREIGN KEY(ClientID) REFERENCES Client(ClientID) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
 CREATE TABLE Transaction(
@@ -107,9 +104,9 @@ INSERT INTO Medicine VALUES(2,"Biotin","enhance nail, hair and nerve","Follow yo
 INSERT INTO Medicine VALUES(3,"Paracetamol","The treatment of painfull, headache ","Follow you doctor advices");
 INSERT INTO Medicine VALUES(4,"Phenytoin","slowing down impulses in the brain that cause seizures","Follow you doctor advices");
 
--- INSERT INTO Prescription VALUES(1,1,1,1, "100 mg, apply sparingly");
--- INSERT INTO Prescription VALUES(2,2,2,2, "200 pills");
--- INSERT INTO Prescription VALUES(3,3,2,1, "100 pills");
+INSERT INTO Prescription VALUES(1,1,"Asprin", "50 pills, Use with chest discomfort and call a doctor");
+INSERT INTO Prescription VALUES(2,2,"Cortozol", "50 mg tube, apply weekly");
+INSERT INTO Prescription VALUES(3,3,"Moisturizer Cream", "100mg, apply to rash or affected area daily");
 
 
 -- INSERT INTO Transaction VALUES(1,3,1,2,200, '2020-01-02');
