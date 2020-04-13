@@ -31,7 +31,6 @@ static function createClient(Client $newClient): int   {
     self::$_db->query($sql);
 
     //Setup the bind parameters
-   self::$_db->bind(":clientid", $newClient->getClientID());
    self::$_db->bind(":userid", $newClient->getUserID());
 
     //Execute the query
