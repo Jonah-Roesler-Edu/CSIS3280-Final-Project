@@ -21,6 +21,7 @@ class Patron extends CI_Controller {
             
             // $this->load->helper('url_helper');
             $this->load->helper(array('html', 'url'));
+            $this->load->helper(array('form'));
     }
 
     public function index() {
@@ -32,12 +33,12 @@ class Patron extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
-        $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
         $this->form_validation->set_rules('username', 'User name', 'callback_username_check');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('phone', 'Phone', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
-        $this->form_validation->set_rules('age', 'Age', 'required');
+        $this->form_validation->set_rules('age', 'Age', 'required|is_natural');
         $this->form_validation->set_rules('password', 'password', 'required');
         $this->form_validation->set_rules('password2', 'Password confirmation', 'required|matches[password]');
         
@@ -121,7 +122,7 @@ class Patron extends CI_Controller {
                     if($user !== false && $user != null){
                         $_SESSION['loggedin'] = $user->UserName;
                         $this->load->view('templates/header', $data);
-                        $this->load->view('patron/loginSuccess', $data);
+                        $this->load->view("patron/loginSuccess", $data);
                         $this->load->view('templates/footer', $data);
                     } else{
                         session_destroy();
@@ -159,11 +160,14 @@ class Patron extends CI_Controller {
         
         session_start();
         session_destroy();
-        echo anchor('JJG_Pharma/index.php/login', 'Login again!'); 
 
+        $data["title"] = "Successfully Logged Out";
+        $this->load->view('templates/header', $data);
+        $this->load->view('patron/logoutSuccess');
+        $this->load->view('templates/footer', $data);
     }//end logout
 
-    public function profile(){
+    public function profile($message=""){
 
         if(LoginManager::verifyLogin() === false || empty($_SESSION)){
             //if no one is logged in then send them back to the login page
@@ -224,26 +228,35 @@ class Patron extends CI_Controller {
             $user->setAge($juser->Age);
 
             $data["u"] = $user;
-            $data["title"] = "";
+            $data["title"] = "Profile";
             //if the action is set to edit then give them the update form
             if(isset($_GET["action"]) && $_GET["action"] == "edit"){
+                $data["title"] = "Update Info";
                 $this->load->helper('form');
                 $this->load->library('form_validation');
 
                 $this->form_validation->set_rules('firstname', 'First Name', 'required');
-                $this->form_validation->set_rules('lastname', 'Last NAme', 'required');
+                $this->form_validation->set_rules('lastname', 'Last Name', 'required');
                 
-                $this->form_validation->set_rules('email', 'Email', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
                 $this->form_validation->set_rules('phone', 'Phone', 'required');
                 $this->form_validation->set_rules('gender', 'Gender', 'required');
-                $this->form_validation->set_rules('age', 'Age', 'required');
+                $this->form_validation->set_rules('age', 'Age', 'required|is_natural');
                
         
                  
                 if ($this->form_validation->run() === FALSE)
-                {
+                {//if form doesn't validate properly
+                   if(validation_errors() != ''){
+                       unset($data["u"]);
+                   }
                     $this->load->view('templates/header', $data);
-                    $this->load->view('patron/updateForm');
+                    if(isset($data["u"])){
+                        $this->load->view('patron/updateFormFirst', $data);
+                    }
+                    else{
+                        $this->load->view('patron/updateForm', $data);
+                    }
                     $this->load->view('templates/footer');
         
                 }
