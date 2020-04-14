@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('JJG_Pharma/index.php/Projjg_pharma/profile?action=edit'); 
+<?php echo form_open('JJG_Pharma/index.php/Projjg_webcoder/profile?action=edit'); 
 //for some reason needed a more complete path than tutorial...
 ?>
 

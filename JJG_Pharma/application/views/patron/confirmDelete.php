@@ -1,6 +1,6 @@
 <h2>Are you sure you want to delete your account? All access will be lost.</h2>
 
-<?php echo form_open('JJG_Pharma/index.php/Projjg_pharma/delete'); 
+<?php echo form_open('JJG_Pharma/index.php/Projjg_webcoder/delete'); 
 //for some reason needed a more complete path than tutorial...
 ?>
 

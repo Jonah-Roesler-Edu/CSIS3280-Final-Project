@@ -13,7 +13,7 @@ require_once(APPPATH . "/entities/Medicine.php");
 // require_once("entities/Prescription.php");
 
 
-class Projjg_pharma extends CI_Controller {
+class Projjg_webcoder extends CI_Controller {
 
     public function __construct()
     {

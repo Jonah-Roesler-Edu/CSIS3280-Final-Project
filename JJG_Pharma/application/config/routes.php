@@ -50,19 +50,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 // $route['default_controller'] = 'Welcome';
-$route['medicine'] = "Projjg_pharma/medicine";
-$route['transaction'] = "Projjg_pharma/transaction";
-$route["logout"] = "Projjg_pharma/logout";
+$route['medicine'] = "Projjg_webcoder/medicine";
+$route['transaction'] = "Projjg_webcoder/transaction";
+$route["logout"] = "Projjg_webcoder/logout";
 // $route['medicine'] = "Mycontroller/test";
-$route['profile'] = 'Projjg_pharma/profile';
-$route['login'] = 'Projjg_pharma/login';
-$route['register'] = 'Projjg_pharma/register';
-$route['prescription'] = 'Projjg_pharma/prescription';
-$route['patron'] = "Projjg_pharma";
+$route['profile'] = 'Projjg_webcoder/profile';
+$route['login'] = 'Projjg_webcoder/login';
+$route['register'] = 'Projjg_webcoder/register';
+$route['prescription'] = 'Projjg_webcoder/prescription';
+$route['patron'] = "Projjg_webcoder";
 
 // $route['test'] = 'MyController/test';
 // $route['(:any)'] = 'MyController/view/$1';
-$route['default_controller'] = 'projjg_pharma/login';
+$route['default_controller'] = 'Projjg_webcoder/login';
 // $route['default_controller'] = 'MyController/test';
 // $route['default_controller'] = "index.php";
 
