@@ -104,16 +104,19 @@ class User{
         // private $Pass;
 
         //Password left out
-        $userjs = new stdClass;
-        $userjs->UserID = $this->UserID;
-        $userjs->FirstName = $this->FirstName;
-        $userjs->LastName = $this->LastName;
-        $userjs->UserName = $this->UserName;
-        $userjs->Email = $this->Email;
-        $userjs->Phone = $this->Phone;
-        $userjs->Gender = $this->Gender;
-        $userjs->Age = $this->Age;
-        return $userjs;
+        // $userjs = new stdClass;
+        // $userjs->UserID = $this->UserID;
+        // $userjs->FirstName = $this->FirstName;
+        // $userjs->LastName = $this->LastName;
+        // $userjs->UserName = $this->UserName;
+        // $userjs->Email = $this->Email;
+        // $userjs->Phone = $this->Phone;
+        // $userjs->Gender = $this->Gender;
+        // $userjs->Age = $this->Age;
+        // return $userjs;
+
+        $obj = get_object_vars($this);
+        return $obj;
     }
     
 

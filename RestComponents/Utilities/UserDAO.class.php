@@ -79,6 +79,29 @@ static function getUser($username){
 
 }
 
+static function getUserWithStats($username){
+
+    $sql = "SELECT u.UserID, u.FirstName, u.UserName, u.LastName, u.Email, u.Phone, u.Gender, u.Age
+    , count(t.transactionid) as NoOfTransactions
+    from client c,user u,transaction t
+    where u.username = :username
+    and u.userid=c.userid
+    and c.clientid = t.clientid;";
+
+    //prepare the query
+    self::$_db->query($sql);
+
+    //Setup the bind parameters
+    self::$_db->bind(":username", $username);
+
+    //Execute the query
+    self::$_db->execute();
+
+    //Return the User!
+    return self::$_db->singleResult();
+
+}
+
 static function getUserByID($userID){
 
     $sql = "SELECT * FROM User

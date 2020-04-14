@@ -4,7 +4,8 @@
 require_once('config.php');
 
 // require entities
-require_once('entities/User.php');
+require_once('..\JJG_Pharma\application\entities\User.php');
+// require_once('entities/User.php');
 require_once('entities/Client_Doctor.php');
 
 //Require Utillity Classes
@@ -69,8 +70,11 @@ switch ($_SERVER["REQUEST_METHOD"])   {
     if (isset($requestData->id))    {
 
         //Return the user object
-        $su = UserDAO::getUser($requestData->id);
-
+        $su = UserDAO::getUserWithStats($requestData->id);
+        if($su->NoOfTransactions == 0){
+            //if there are no transactions, $su will be null
+            $su = UserDAO::getUser($requestData->id);
+        }
         // $scd = Client_DoctorDAO::getClient_Doctor($requestData->id);
 
         //Set the header

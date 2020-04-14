@@ -11,6 +11,7 @@
             </tr><tr>
                 <td>Age: <?php echo $u->getAge()?></td>
                 <td>Gender: <?php echo $u->getGender()?></td>
+                <td>Number of Purchases: <?php echo $NoOfTransactions?></td>
             </tr>
             <tr>
                 <td>

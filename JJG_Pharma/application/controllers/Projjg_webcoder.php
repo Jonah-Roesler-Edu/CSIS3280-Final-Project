@@ -215,8 +215,9 @@ class Projjg_webcoder extends CI_Controller {
             //first get the user info from the database
             $requestData = array("id" => $_SESSION["loggedin"]);
             $juser = RestClient::call("GET",$requestData,"profile");
+            
             //next print it to the table
-            // var_dump($juser);
+            
             $user = new User();
             $user->setUserID($juser->UserID);
             $user->setFirstName($juser->FirstName);
@@ -226,7 +227,12 @@ class Projjg_webcoder extends CI_Controller {
             $user->setPhone($juser->Phone);
             $user->setGender($juser->Gender);
             $user->setAge($juser->Age);
-
+            if(isset($juser->NoOfTransactions)){
+                $data["NoOfTransactions"] = $juser->NoOfTransactions;
+            }else{
+                $data["NoOfTransactions"] = 0;
+            }
+            
             $data["u"] = $user;
             $data["title"] = "Profile";
             //if the action is set to edit then give them the update form
